@@ -1,0 +1,7 @@
+FROM mysql:5.6
+
+MAINTAINER Lee <lonisy@163.com>
+
+RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+  && echo 'Asia/Shanghai' > /etc/timezone
+

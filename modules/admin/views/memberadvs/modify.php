@@ -1,0 +1,48 @@
+<?php
+/**
+ * Created by 李垒(李雷) <leili@yoozoo.com>.
+ * User: lilei
+ * Date: 2018/1/22
+ * Time: 21:29
+ */
+
+use app\assets\AdminAsset;
+use app\assets\FormAsset;
+use yii\helpers\Url;
+use app\components\ModelForm;
+
+FormAsset::register($this);
+AdminAsset::set('toastr.bundle,bootstrap3-dialog.bundle,modify.bundle', $this);
+?>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel">
+            <div class="panel-heading" data-default="title">loading...</div>
+            <div class="panel-body pan">
+                <div class="form-horizontal form-bordered">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">新闻标题</label>
+                        <div class="col-md-6">
+                            <div class="form-control">
+                                <?php echo $adv->art_title ?? '-'; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php echo ModelForm::display($model, $model->getFormFields()); ?>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    <?php $this->beginBlock('js');echo PHP_EOL;?>
+    var pagesConfig = {
+        submitType: "<?php echo $model->isNewRecord ? 'POST' : 'PATCH' ?>",
+        baseUrl: "<?php echo Url::to(['/admin/memberadvs']) ?>",
+        manageUrl: "<?php echo Url::to(['/admin/memberadvs/manage']) ?>",
+        uploadImageUrl: "<?php echo Url::to(['/admin/file/image']) ?>",
+    };
+    <?php $this->endBlock();?>
+</script>
+<?php $this->registerJs($this->blocks['js'], \yii\web\View::POS_HEAD); ?>
+

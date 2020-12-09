@@ -1,0 +1,13 @@
+User-agent: *
+Disallow:/admin
+Disallow:/admin.html
+Disallow:/admin/login
+Disallow:/admin/login.html
+Disallow:/*?*
+Disallow:/tag
+Disallow:/tags
+Disallow:/tag.html
+Disallow:/tags.html
+Disallow:/notfound
+Disallow:/notfound.html
+Sitemap: http://news.yunyitongcheng.com/sitemap.xml

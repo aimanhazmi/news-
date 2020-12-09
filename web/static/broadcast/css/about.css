@@ -1,0 +1,737 @@
+.ab-banner-image {
+    position: absolute
+}
+
+.about-title {
+    color: #fff;
+    font-size: 32px;
+    padding-top: 70px
+}
+
+.about-title>.org {
+    font-size: 30px;
+    vertical-align: text-bottom;
+    color: #ffdf4a;
+    padding-left: 16px
+}
+
+.bannerbg.about .main {
+    overflow: visible
+}
+
+.about {
+    position: relative;
+    overflow: visible
+}
+
+.about .nav-tabs {
+    position: absolute;
+    bottom: -1px;
+    background-color: #fff;
+    border-radius: 4px 4px 0 0;
+    border: 1px solid #c3cad9;
+    border-bottom: 0;
+    width: auto;
+    right: 0
+}
+
+.about .nav-tabs li {
+    margin: 0 23px
+}
+
+.about .nav-tabs li a {
+    border-top: 0;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    padding-left: 0;
+    padding-right: 0
+}
+
+.about .nav-tabs>.line {
+    float: left;
+    margin-top: 12px
+}
+
+.about .uc.nav-tabs li.active a,
+.about .uc.nav-tabs li:hover a {
+    border-top: 0;
+    border-bottom: 2px solid #fbc000;
+    padding-right: 0;
+    padding-left: 0;
+    padding-top: 10px
+}
+
+.about-main .text {
+    padding-top: 40px
+}
+
+.about-main .delete-style {
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0
+}
+
+.about-tab-pane {
+    box-sizing: border-box;
+    padding: 80px 24px 80px 24px
+}
+
+.p-left,
+.p-right {
+    width: 50%;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: top
+}
+
+.p-left>.text,
+.p-right>.text {
+    padding-top: 10px
+}
+
+.p-left {
+    padding-right: 2%
+}
+
+.p-right {
+    padding-left: 2%
+}
+
+.ab-video {
+    padding: 10px 0
+}
+
+.about-video-h5-dimensions.vjs-fluid {
+    padding-top: 42.5531914893617%
+}
+
+.com-team {
+    padding: 20px 0 60px 0;
+    width: 100%;
+    text-align: right;
+    height: 570px;
+    font-size: 0
+}
+
+.com-team.even {
+    text-align: left
+}
+
+.com-team>.line {
+    width: 110px;
+    height: 2px;
+    background-color: #f9ce1d;
+    margin: 18px 0 30px 0;
+    display: inline-block
+}
+
+.com-team>.js {
+    width: 653px;
+    height: 535px;
+    display: inline-block;
+    vertical-align: top;
+    background-image: url(../images/team-bg.png);
+    box-sizing: border-box;
+    padding: 50px;
+    text-align: left
+}
+
+.com-team>.js>.en3 {
+    color: #c3c5cc;
+    font-size: 32px;
+    padding-top: 36px
+}
+
+.com-team>.photo {
+    width: 499px;
+    height: 535px;
+    display: inline-block
+}
+
+.js>.cxo {
+    padding-top: 50px
+}
+
+.js>.cxo>.left,
+.js>.cxo>.right {
+    display: inline-block
+}
+
+.js>.cxo>.left {
+    width: 110px;
+    margin-right: 28px
+}
+
+.js>.cxo .name {
+    font-size: 24px;
+    color: #0a1633
+}
+
+.js>.cxo .job {
+    font-size: 16px;
+    color: #0a1633
+}
+
+.js>.cxo .line {
+    height: 2px;
+    background-color: #3860f4
+}
+
+.js>.cxo .text {
+    padding-top: 0;
+    display: inline-block;
+    width: 410px;
+    vertical-align: top
+}
+
+.even .js {
+    text-align: right;
+    background-image: url(../images/team-bg-even.png)
+}
+
+.even .js>.cxo>.left {
+    margin-right: 0;
+    margin-left: 28px
+}
+
+.even .js>.cxo .text {
+    padding-top: 0;
+    display: inline-block;
+    width: 410px;
+    vertical-align: top;
+    text-align: left
+}
+
+.ben {
+    background-image: url(../images/ceo-ben.png)
+}
+
+.albert {
+    background-image: url(../images/coo-albert.png)
+}
+
+.mo {
+    background-image: url(../images/cto-mo.png)
+}
+
+.eric {
+    background-image: url(../images/vp-eric.png)
+}
+
+.juyan {
+    background-image: url(../images/vp-juyan.png)
+}
+
+.ai-icon {
+    width: 25px;
+    height: 26px;
+    background-position: -88px -40px;
+    margin-right: 4px;
+    margin-right: 12px;
+    display: inline-block;
+    background-image: url(../images/images.png);
+    vertical-align: middle;
+    animation: rotateY 5s infinite;
+    -moz-animation: rotateY 5s infinite;
+    -webkit-animation: rotateY 5s infinite;
+    -o-animation: rotateY 5s infinite
+}
+
+.dsj-year {
+    display: table;
+    padding-top: 20px;
+    padding-bottom: 48px;
+    width: 100%
+}
+
+.dsj-year>.left,
+.dsj-year>.right {
+    display: table-cell;
+    width: 50%;
+    box-sizing: content-box;
+    padding-left: 80px
+}
+
+.dsj-year>.left>.image,
+.dsj-year>.right>.image {
+    position: relative
+}
+
+.dsj-year>.left>.image>.word,
+.dsj-year>.right>.image>.word {
+    position: absolute;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .5);
+    padding: 8px;
+    line-height: 24px;
+    color: #fff;
+    left: 0;
+    right: 0
+}
+
+.dsj-year>.left>ul li,
+.dsj-year>.right>ul li {
+    color: #6b798e;
+    text-align: right;
+    margin-bottom: 45px;
+    font-size: 14px;
+    line-height: 24px
+}
+
+.dsj-year>.left>ul li.title,
+.dsj-year>.right>ul li.title {
+    color: #0a1633;
+    margin-bottom: 0
+}
+
+.dsj-year>.left>ul li.title .en3,
+.dsj-year>.right>ul li.title .en3 {
+    font-size: 28px
+}
+
+.dsj-year>.left {
+    padding-left: 0;
+    padding-right: 80px;
+    vertical-align: top;
+    position: relative
+}
+
+.dsj-year>.left .text-year.en3 {
+    font-size: 36px;
+    width: 24px;
+    position: absolute;
+    right: -20px;
+    word-wrap: break-word;
+    display: block;
+    padding: 0 0 10px 0;
+    background-color: #fff;
+    letter-spacing: 10px
+}
+
+.dsj-year>.left .text-year.en3.y-2017 {
+    color: #1054ff
+}
+
+.dsj-year>.left .text-year.en3.y-2016 {
+    color: #fbc000
+}
+
+.dsj-year>.left.y-2017 {
+    border-right: 1px solid #1054ff
+}
+
+.dsj-year>.left.y-2017:after {
+    background-color: #1054ff;
+    content: ' ';
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 5px;
+    right: -3px;
+    bottom: 0
+}
+
+.dsj-year>.left.y-2016 {
+    border-right: 1px solid #fbc000
+}
+
+.dsj-year>.left.y-2016:after {
+    background-color: #fbc000;
+    content: ' ';
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 5px;
+    right: -3px;
+    bottom: 0
+}
+
+.dsj-year>.right>ul li {
+    text-align: left
+}
+
+.img-2017 {
+    width: 496px;
+    height: 265px;
+    background-image: url(../images/17.jpg)
+}
+
+.img-2016 {
+    width: 495px;
+    height: 320px;
+    background-image: url(../images/16.jpg)
+}
+
+.img-2015 {
+    width: 246px;
+    height: 356px;
+    background-image: url(../images/15.jpg)
+}
+
+.img-2012 {
+    width: 495px;
+    height: 319px;
+    background-image: url(../images/12.jpg)
+}
+
+.video-list li {
+    display: none
+}
+
+.video-list li.active {
+    display: block
+}
+
+.about-video-wrapp {
+    width: 756px;
+    background-color: #6b798e
+}
+
+.about-video-word {
+    width: 374px;
+    position: absolute;
+    right: 0;
+    top: 0
+}
+
+.about-video-word>.title {
+    font-size: 18px;
+    color: #0a1633;
+    padding: 26px 0
+}
+
+.about-video-word>.text {
+    padding-top: 0
+}
+
+.about-video-carousel {
+    position: absolute;
+    right: 10px;
+    bottom: 0
+}
+
+.about-video-carousel li {
+    display: inline-block;
+    width: 31px;
+    height: 31px;
+    border: 1px solid #3860f4;
+    border-radius: 2px;
+    text-align: center;
+    line-height: 30px;
+    color: #3860f4
+}
+
+.about-video-carousel li.active,
+.about-video-carousel li:hover {
+    background-color: #3860f4;
+    color: #fff
+}
+
+.about-sub-banner {
+    padding: 32px 0;
+    font-size: 0;
+    margin: 0 -24px
+}
+
+.about-mission,
+.about-vision {
+    width: 590px;
+    height: 158px;
+    background-image: url(../images/vision.jpg);
+    margin-right: 16px;
+    display: inline-block;
+    border: 1px solid #cfdaff;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 24px
+}
+
+.about-mission>.title,
+.about-vision>.title {
+    color: #0a1633;
+    font-size: 18px;
+    font-weight: 700;
+    padding-bottom: 12px;
+    padding-top: 12px
+}
+
+.about-mission>.text,
+.about-vision>.text {
+    padding-top: 0;
+    font-size: 16px
+}
+
+.about-mission {
+    background-image: url(../images/mission.jpg);
+    border: 1px solid #fbc000;
+    margin-right: 0
+}
+
+.about-mission>.text {
+    color: #0a1633
+}
+
+.about-values>.text {
+    padding-top: 24px
+}
+
+.about-values>.in-h2 .en3 {
+    font-size: 30px;
+    vertical-align: top
+}
+
+.ab-val-list {
+    padding-top: 52px;
+    font-size: 0
+}
+
+.ab-val-con {
+    width: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    vertical-align: top;
+    padding-bottom: 60px
+}
+
+.ab-val-con .icon {
+    width: 43px;
+    height: 49px;
+    display: inline-block;
+    margin-right: 20px;
+    vertical-align: middle
+}
+
+.ab-val-con .icon.about01 {
+    background-image: url(../images/about01.png)
+}
+
+.ab-val-con .icon.about02 {
+    background-image: url(../images/about02.png)
+}
+
+.ab-val-con .icon.about03 {
+    background-image: url(../images/about03.png)
+}
+
+.ab-val-con .icon.about04 {
+    background-image: url(../images/about04.png)
+}
+
+.ab-val-con>.title {
+    font-size: 18px
+}
+
+.ab-val-con:nth-child(even) {
+    padding-left: 62px
+}
+
+.ab-val-con:nth-child(odd) {
+    padding-right: 62px
+}
+
+.in-ucloud {
+    margin: 0 -24px;
+    font-size: 0
+}
+
+.in-ucloud-word {
+    width: 601px;
+    height: 430px;
+    background-image: url(../images/team-bg-even.png);
+    background-color: #f6f7fa;
+    box-sizing: border-box;
+    padding: 26px 130px 80px 86px;
+    display: inline-block
+}
+
+.in-ucloud-word .in-h2 {
+    width: 110px;
+    border-bottom: 2px solid #f9ce1d;
+    padding-bottom: 30px;
+    overflow: visible;
+    white-space: nowrap
+}
+
+.in-ucloud-word .in-h2>.en3 {
+    font-size: 30px;
+    padding-left: 10px
+}
+
+.in-ucloud-img {
+    width: 599px;
+    height: 430px;
+    display: inline-block;
+    vertical-align: top;
+    background-image: url(../images/in-ucloud.jpg)
+}
+
+.about-fture {
+    margin: 0 -24px;
+    padding: 100px 0 0 0;
+    font-size: 0
+}
+
+.ab-f-list:last-child {
+    margin-right: 0
+}
+
+.ab-f-list {
+    width: 370px;
+    margin-right: 44px;
+    height: 448px;
+    border: 1px solid #e1e6f0;
+    border-radius: 4px;
+    position: relative;
+    padding: 22px;
+    box-sizing: border-box;
+    display: inline-block
+}
+
+.ab-f-list>.title {
+    position: absolute;
+    top: -16px;
+    left: 22px;
+    background-color: #fff;
+    font-size: 18px;
+    color: #0a1633
+}
+
+.ab-f-list>.title>.en3 {
+    font-size: 24px;
+    vertical-align: top
+}
+
+.ab-f-list .banner-list-index {
+    color: #6b798e;
+    font-size: 14px;
+    padding-top: 16px;
+    position: relative
+}
+
+.ab-f-list .banner-list-index li {
+    position: absolute;
+    top: 22px;
+    display: none;
+    height: 343px;
+    background-color: #fff
+}
+
+.ab-f-list .banner-list-index img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 26px
+}
+
+.cer-img-style {
+    display: inline-block;
+    width: 120px;
+    text-align: center
+}
+
+.cer-list li {
+    display: inline-block;
+    vertical-align: top;
+    width: 574px;
+    height: 168px;
+    border: 1px solid #c3cad9;
+    border-radius: 2px;
+    margin: 0 10px 24px 10px
+}
+
+.cer-list-left,
+.cer-list-right {
+    display: inline-block
+}
+
+.cer-list-left {
+    width: 130px;
+    vertical-align: middle
+}
+
+.cer-list-left img {
+    vertical-align: middle
+}
+
+.cer-list-right {
+    width: 390px;
+    height: 122px;
+    padding: 30px 24px 0 24px;
+    color: #000;
+    vertical-align: middle
+}
+
+.cer-title {
+    font-size: 20px;
+    line-height: 24px
+}
+
+.cer-des {
+    margin-top: 16px;
+    font-size: 12px;
+    line-height: 24px
+}
+
+.vertical {
+    display: inline-block;
+    height: 88px;
+    border-left: 1px solid #c3cad9;
+    vertical-align: middle
+}
+
+.cer-icon {
+    width: 100%;
+    height: 215px;
+    background-color: #f6f7fa;
+    text-align: center
+}
+
+.cer-icon span {
+    display: inline-block;
+    width: 1px;
+    height: 215px;
+    vertical-align: middle
+}
+
+.cer-icon img {
+    display: inline-block;
+    vertical-align: middle
+}
+
+.rewards-left,
+.rewards-right {
+    margin-bottom: 100px;
+    width: 600px;
+    vertical-align: middle;
+    padding-left: 98px;
+    text-align: left;
+    font-size: 14px;
+    line-height: 24px;
+    box-sizing: border-box
+}
+
+.rewards-left {
+    float: left;
+    padding-right: 34px
+}
+
+.rewards-right {
+    float: right
+}
+
+.reward-section {
+    margin-bottom: 36px
+}
+
+.reward-section-time {
+    margin-right: 20px;
+    display: inline-block;
+    vertical-align: top
+}
+
+.reward-section-des {
+    color: #0a1633;
+    vertical-align: top;
+    display: inline-block;
+    width: 380px
+}

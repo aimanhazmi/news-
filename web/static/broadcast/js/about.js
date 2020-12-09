@@ -1,0 +1,1 @@
+$(document).ready(function() { $("#CarWrapper li").click(function() { $("#CarWrapper li").eq($(this).index()).addClass("active").siblings().removeClass("active"), $("#VideoList li").eq($("#CarWrapper li").index(this)).addClass("active").siblings().removeClass("active") }), $(".ab-f-list").moveBanner({ bannerListWrap: ".banner-list-index" }) });

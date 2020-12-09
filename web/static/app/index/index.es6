@@ -1,0 +1,80 @@
+
+var vm = new Vue({
+    el: '#sys-action-log',
+    data() {
+        return {
+            message: '23',
+            loading: true,
+            logs: {},
+        }
+    },
+    methods: {
+        getActionLog: function () {
+            var that = this;
+            $.ajax({
+                type: 'GET',
+                url: '/actionlog',
+                contentType: 'application/x-www-form-urlencoded',
+                data: {},
+                dataType: 'json',
+                success: function (result) {
+                    if (result.code == 0) {
+                        that.logs = result.content;
+                        // that.showDetail(that.logs.items[0]);
+                    } else {
+                        that.message = result.message;
+                    }
+                    that.loading = false;
+                },
+                error: function () {
+                    console.log('error');
+                }
+            });
+        },
+        fromNow: function (timestamp) {
+            // var time = moment.unix(timestamp);
+            // console.log([time.year(), time.month(), time.date()]);
+            return moment(moment.unix(timestamp)).fromNow();
+        },
+        formatDesc: function (content) {
+            let reg = /(?<=\[)[\S\s]*(?=\])/gi;
+            let res = '';
+            res = content.replace(reg, function ($, $1, $2) {
+                if ($ != '未定义的菜单') {
+                    return '<span class="text-green" >' + $ + '</span>';
+                }
+                return '<span class="text-yellow" >' + $ + '</span>';
+            })
+            return res;
+
+            // let reg = /(劉|未定义的菜单)/gi;
+            // let res = '';
+            // res = content.replace(reg, function($, $1, $2) {
+            //     console.log($);
+            //     return '<span class="text-yellow" >' + $ + '</span>';
+            // })
+            // return res;
+        },
+        showDetail: function (row) {
+            document.getElementById('showJsonDetail').innerHTML = row.data;
+        },
+    },
+    beforeMount: function () {
+        // 设置定时器，每3秒刷新一次
+    },
+    created: function () {
+        // `this` 指向 vm 实例
+        // console.log('a is: ' + this.a)
+    },
+    mounted: function () {
+        var that = this;
+        this.$nextTick(function () {
+            // that.getActionLog();
+            // setInterval(function () {
+            //     that.getActionLog();
+            // }, 4000);
+        })
+    }
+});
+
+

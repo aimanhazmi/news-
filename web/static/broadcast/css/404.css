@@ -1,0 +1,27 @@
+.misspage-layer {
+    position: relative;
+    width: 100%;
+    min-height: 100%;
+}
+.main-wrap {
+    position: relative;
+    margin: 0 auto;
+    width: 753px;
+    padding-top: 10%;
+}
+.main-wrap .misspage-content {
+    width: 100%;
+    color: #6b798e;
+    font-size: 12px;
+    line-height: 24px;
+    text-align: center;
+}
+.main-wrap .black {
+    font-size: 14px;
+    line-height: 34px;
+    color: #0a1633;
+}
+.main-wrap .misspage-btn {
+    line-height: 24px;
+    color: #3860f4;
+}

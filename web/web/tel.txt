@@ -1,0 +1,24 @@
+
+百度统计代码
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?73a4aa5e4e1965beef96c550ddb3538c";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+------------------------------------------------------------------------------------------
+
+联系人：黄经理
+
+手机：15353013491
+
+电话：0917-4717482
+
+公司名称：凤县森鑫林产品有限责任公司
+
+地址：陕西省宝鸡市凤县凤州镇团结路
