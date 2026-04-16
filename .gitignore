@@ -22,3 +22,5 @@
 *.log
 runtime/*
 
+# Large local dumps / archives
+28.sql
