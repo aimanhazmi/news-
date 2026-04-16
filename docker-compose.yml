@@ -15,10 +15,10 @@ services:
     platform: linux/amd64
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: news_db
-      MYSQL_USER: news
-      MYSQL_PASSWORD: news123
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-news_db}
+      MYSQL_USER: ${MYSQL_USER:-news}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
       - '3306:3306'
     volumes:

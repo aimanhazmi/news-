@@ -25,7 +25,7 @@ $config           = [
     'components'   => [
         'request'      => [
             'enableCookieValidation' => false,
-            'cookieValidationKey'    => '9pTfOv50SaWJqqNaQQZQcpEAAF6nrc1S',
+            'cookieValidationKey'    => getenv('COOKIE_VALIDATION_KEY') ?: 'change-this-in-env',
         ],
         'cache'        => [
             'class' => 'yii\caching\FileCache',
