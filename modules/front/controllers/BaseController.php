@@ -1,8 +1,8 @@
 <?php
 /**
- * Created by lonisy@163.com
- * User: lilei
- * Date: 2018-12-05 22:28:44
+ * Created by aiman
+ * User: aiman
+ * Date: 2025-12-05 22:28:44
  */
 
 namespace app\modules\front\controllers;
@@ -92,7 +92,7 @@ class BaseController extends Controller
 
 
     /**
-     * Created by lonisy@163.com
+     * Created by aiman
      * @param int $code
      * @param string $message
      * @return string
@@ -109,7 +109,7 @@ class BaseController extends Controller
         return Yii::$app->end();
     }
     /**
-     * Created by lonisy@163.com
+     * Created by aiman
      * @param $data
      * @return string
      */

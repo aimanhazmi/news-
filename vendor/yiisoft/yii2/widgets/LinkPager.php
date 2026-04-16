@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
+ * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license https://www.yiiframework.com/license/
  */
 
 namespace yii\widgets;
@@ -100,7 +100,7 @@ class LinkPager extends Widget
      */
     public $nextPageLabel = '&raquo;';
     /**
-     * @var string|bool the text label for the previous page button. Note that this will NOT be HTML-encoded.
+     * @var string|bool the text label for the "previous" page button. Note that this will NOT be HTML-encoded.
      * If this property is false, the "previous" page button will not be displayed.
      */
     public $prevPageLabel = '&laquo;';
@@ -119,7 +119,7 @@ class LinkPager extends Widget
     /**
      * @var bool whether to register link tags in the HTML header for prev, next, first and last page.
      * Defaults to `false` to avoid conflicts when multiple pagers are used on one page.
-     * @see http://www.w3.org/TR/html401/struct/links.html#h-12.1.2
+     * @see https://www.w3.org/TR/html401/struct/links.html#h-12.1.2
      * @see registerLinkTags()
      */
     public $registerLinkTags = false;
@@ -161,7 +161,7 @@ class LinkPager extends Widget
     /**
      * Registers relational link tags in the html header for prev, next, first and last page.
      * These links are generated using [[\yii\data\Pagination::getLinks()]].
-     * @see http://www.w3.org/TR/html401/struct/links.html#h-12.1.2
+     * @see https://www.w3.org/TR/html401/struct/links.html#h-12.1.2
      */
     protected function registerLinkTags()
     {

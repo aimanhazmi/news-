@@ -7,21 +7,24 @@
         {
             "name": "Davert",
             "email": "davert.php@resend.cc"
+        },
+
+        {
+            "name": "Naktibalda"
         }
     ],
     "require": {
-        "phpunit/phpunit": "~7.1.0|~7.2.0|~7.3.0",
-        "phpunit/php-code-coverage": "^6.0",
-        "sebastian/comparator": "^3.0",
-        "sebastian/diff": "^3.0"
+        "php": ">=7.2",
+        "phpunit/phpunit": "^9.0"
     },
-    "autoload":{
-        "psr-4":{
-            "Codeception\\PHPUnit\\": "src\\"
+    "autoload": {
+        "psr-4": {
+            "Codeception\\PHPUnit\\": "src/"
         }
     },
     "require-dev": {
-        "vlucas/phpdotenv": "^2.4",
-        "codeception/specify": "*"
+        "vlucas/phpdotenv": "^3.0",
+        "codeception/specify": "*",
+        "consolidation/robo": "^3.0.0-alpha3"
     }
 }

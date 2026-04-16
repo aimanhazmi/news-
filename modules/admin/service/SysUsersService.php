@@ -1,8 +1,8 @@
 <?php
 /**
- * Created by lonisy@163.com
- * Author: lilei
- * Date: 2017/8/25
+ * Created by aiman
+ * Author: aiman
+ * Date: 2025/8/25
  * Time: 11:34
  */
 
@@ -63,7 +63,7 @@ class SysUsersService
 
 
     /**
-     * Created by lonisy@163.com
+     * Created by aiman
      * 服务端分页
      * @param array $params
      * @return mixed
@@ -259,7 +259,7 @@ class SysUsersService
 
     /**
      * 生成 Api 分页方法
-     * Created by lonisy@163.com
+     * Created by aiman
      * @param Pagination $pagination
      * @param array $items
      * @return mixed text-primary
@@ -279,7 +279,7 @@ class SysUsersService
 
 
     /**
-     * Created by lonisy@163.com
+     * Created by aiman
      * Description: 创建模型
      * @param array $data
      * @return mixed
@@ -307,7 +307,7 @@ class SysUsersService
 
 
     /**
-     * Created by lonisy@163.com
+     * Created by aiman
      * Description: 更新模型
      * @param int $id
      * @return bool
@@ -366,7 +366,7 @@ class SysUsersService
     }
 
     /**
-     * Created by lonisy@163.com
+     * Created by aiman
      * 批量修改, 根据 ids 数组 修改指定字段
      */
     public function batchModify()
@@ -378,7 +378,7 @@ class SysUsersService
     }
 
     /**
-     * Created by lonisy@163.com
+     * Created by aiman
      * 批量删除
      */
     public function batchDelete()
@@ -423,7 +423,7 @@ class SysUsersService
     }
 
     /**
-     * Created by Lilei <lonisy@163.com>. lilei
+     * Created by aiman <ammzz2020@gmail.com>
      * getOnlineAnalysis 2018/8/14
      * 获取在线人数
      * @return array
@@ -478,7 +478,7 @@ class SysUsersService
     }
 
     /**
-     * Created by Lilei <lonisy@163.com>. lilei
+     * Created by aiman <ammzz2020@gmail.com>
      * 查询七天注册曲线 2018/8/14
      * @return array
      */
@@ -512,7 +512,7 @@ class SysUsersService
     }
 
     /**
-     * Created by Lilei <lonisy@163.com>. lilei
+     * Created by aiman <ammzz2020@gmail.com>
      * 查询七天 IP 曲线 2018/8/14
      */
     public function get7DayIpAnalysis()
@@ -545,7 +545,7 @@ class SysUsersService
     }
 
     /**
-     * Created by Lilei <lonisy@163.com>. lilei
+     * Created by aiman <ammzz2020@gmail.com>
      * 获取用户统计数据 2018/8/14
      * @return array
      */

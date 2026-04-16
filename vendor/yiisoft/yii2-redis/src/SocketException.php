@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
+ * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license https://www.yiiframework.com/license/
  */
 
 namespace yii\redis;
@@ -15,6 +15,14 @@ use yii\db\Exception;
  */
 class SocketException extends Exception
 {
+    public function __construct($message = null, $code = 0, \Exception $previous = null)
+    {
+        if (!YII_DEBUG) {
+            $message = preg_replace('~AUTH \S+ \S+~', 'AUTH *** ***', $message);
+        }
+        parent::__construct($message, $code, $previous);
+    }
+
     /**
      * @return string the user-friendly name of this exception
      */

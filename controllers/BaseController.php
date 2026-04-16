@@ -1,8 +1,8 @@
 <?php
 /**
- * Created by lonisy@163.com
- * User: lilei
- * Date: 2017/12/11
+ * Created by aiman
+ * User: aiman
+ * Date: 2025/12/11
  * Time: 20:43
  */
 
@@ -26,7 +26,7 @@ class BaseController extends Controller
     }
 
     /**
-     * Created by lonisy@163.com
+     * Created by aiman
      * @param int $code
      * @param string $message
      * @return string
@@ -45,7 +45,7 @@ class BaseController extends Controller
     }
 
     /**
-     * Created by lonisy@163.com
+     * Created by aiman
      * @param $data
      * @return string
      */
@@ -69,7 +69,7 @@ class BaseController extends Controller
     }
 
     /**
-     * Created by lonisy@163.com
+     * Created by aiman
      * @param $data
      */
     private function checkResponseCallback($response)
@@ -84,7 +84,7 @@ class BaseController extends Controller
     }
 
     /**
-     * Created by lonisy@163.com
+     * Created by aiman
      */
     private function setHeader()
     {
@@ -94,7 +94,7 @@ class BaseController extends Controller
     }
 
     //    /**
-    //     * created by lonisy@163.com
+    //     * created by aiman <ammzz2020@gmail.com>
     //     * 权限验证
     //     */
     //    public function beforeAction($action)

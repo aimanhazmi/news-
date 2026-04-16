@@ -1,7 +1,7 @@
 <?php
 /**
- * Created by 李垒(李雷) <leili@yoozoo.com>.
- * User: lilei
+ * Created by aiman
+ * User: aiman
  */
 
 namespace app\modules\admin\controllers;
@@ -21,7 +21,7 @@ class MemberadvsController extends BaseController
     }
 
     /**
-     * Created by 李垒(李雷) <leili@yoozoo.com>.
+     * Created by aiman
      * RESTful api
      * @param int $id
      * @return string
@@ -51,7 +51,7 @@ class MemberadvsController extends BaseController
     }
 
     /**
-     * Created by 李垒(李雷) <leili@yoozoo.com>.
+     * Created by aiman
      * 批量操作 Batch operate
      * @return string
      */

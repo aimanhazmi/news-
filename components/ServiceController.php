@@ -1,8 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: CLZ
- * Date: 2018/1/15
+ * Created by aiman
+ * User: aiman
+ * Date: 2025/1/15
  * Time: 下午4:42
  */
 
@@ -18,7 +18,7 @@ class ServiceController extends Controller
     }
 
     /**
-     * Created by CLZ
+     * Created by aiman
      * 获取并注册service
      * @param string $serviceName
      * @param array $params
@@ -29,7 +29,7 @@ class ServiceController extends Controller
     }
 
     /**
-     * Created by CLZ
+     * Created by aiman
      * 重新载入service
      * @param string $serviceName
      * @param array $params

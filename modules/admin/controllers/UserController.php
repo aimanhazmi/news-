@@ -12,6 +12,7 @@ use yii\helpers\Url;
  */
 class UserController extends BaseController
 {
+    public $enableCsrfValidation = false;
     public function init()
     {
         $this->allowNoLogin = true;

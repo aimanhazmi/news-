@@ -1,19 +1,20 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
+ * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license https://www.yiiframework.com/license/
  */
 
 namespace yii\filters;
 
 use Yii;
 use yii\base\ActionFilter;
+use yii\base\InvalidConfigException;
 use yii\web\Request;
 use yii\web\Response;
 
 /**
- * Cors filter implements [Cross Origin Resource Sharing](http://en.wikipedia.org/wiki/Cross-origin_resource_sharing).
+ * Cors filter implements [Cross Origin Resource Sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing).
  *
  * Make sure to read carefully what CORS does and does not. CORS do not secure your API,
  * but allow the developer to grant access to third party code (ajax calls from external domain).
@@ -25,7 +26,7 @@ use yii\web\Response;
  * {
  *     return [
  *         'corsFilter' => [
- *             'class' => \yii\filters\Cors::className(),
+ *             'class' => \yii\filters\Cors::class,
  *         ],
  *     ];
  * }
@@ -39,14 +40,15 @@ use yii\web\Response;
  * {
  *     return [
  *         'corsFilter' => [
- *             'class' => \yii\filters\Cors::className(),
+ *             'class' => \yii\filters\Cors::class,
  *             'cors' => [
  *                 // restrict access to
  *                 'Origin' => ['http://www.myserver.com', 'https://www.myserver.com'],
- *                 'Access-Control-Request-Method' => ['POST', 'PUT'],
  *                 // Allow only POST and PUT methods
- *                 'Access-Control-Request-Headers' => ['X-Wsse'],
+ *                 'Access-Control-Request-Method' => ['POST', 'PUT'],
  *                 // Allow only headers 'X-Wsse'
+ *                 'Access-Control-Request-Headers' => ['X-Wsse'],
+ *                 // Allow credentials (cookies, authorization headers, etc.) to be exposed to the browser
  *                 'Access-Control-Allow-Credentials' => true,
  *                 // Allow OPTIONS caching
  *                 'Access-Control-Max-Age' => 3600,
@@ -68,11 +70,11 @@ use yii\web\Response;
 class Cors extends ActionFilter
 {
     /**
-     * @var Request the current request. If not set, the `request` application component will be used.
+     * @var Request|null the current request. If not set, the `request` application component will be used.
      */
     public $request;
     /**
-     * @var Response the response to be sent. If not set, the `response` application component will be used.
+     * @var Response|null the response to be sent. If not set, the `response` application component will be used.
      */
     public $response;
     /**
@@ -121,8 +123,10 @@ class Cors extends ActionFilter
      */
     public function overrideDefaultSettings($action)
     {
-        if (isset($this->actions[$action->id])) {
-            $actionParams = $this->actions[$action->id];
+        $actionId = $this->getActionId($action);
+
+        if (isset($this->actions[$actionId])) {
+            $actionParams = $this->actions[$actionId];
             $actionParamsKeys = array_keys($actionParams);
             foreach ($this->cors as $headerField => $headerValue) {
                 if (in_array($headerField, $actionParamsKeys)) {
@@ -160,8 +164,21 @@ class Cors extends ActionFilter
         $responseHeaders = [];
         // handle Origin
         if (isset($requestHeaders['Origin'], $this->cors['Origin'])) {
-            if (in_array('*', $this->cors['Origin']) || in_array($requestHeaders['Origin'], $this->cors['Origin'])) {
+            if (in_array($requestHeaders['Origin'], $this->cors['Origin'], true)) {
                 $responseHeaders['Access-Control-Allow-Origin'] = $requestHeaders['Origin'];
+            }
+
+            if (in_array('*', $this->cors['Origin'], true)) {
+                // Per CORS standard (https://fetch.spec.whatwg.org), wildcard origins shouldn't be used together with credentials
+                if (isset($this->cors['Access-Control-Allow-Credentials']) && $this->cors['Access-Control-Allow-Credentials']) {
+                    if (YII_DEBUG) {
+                        throw new InvalidConfigException("Allowing credentials for wildcard origins is insecure. Please specify more restrictive origins or set 'credentials' to false in your CORS configuration.");
+                    } else {
+                        Yii::error("Allowing credentials for wildcard origins is insecure. Please specify more restrictive origins or set 'credentials' to false in your CORS configuration.", __METHOD__);
+                    }
+                } else {
+                    $responseHeaders['Access-Control-Allow-Origin'] = '*';
+                }
             }
         }
 
@@ -181,6 +198,10 @@ class Cors extends ActionFilter
 
         if (isset($this->cors['Access-Control-Expose-Headers'])) {
             $responseHeaders['Access-Control-Expose-Headers'] = implode(', ', $this->cors['Access-Control-Expose-Headers']);
+        }
+
+        if (isset($this->cors['Access-Control-Allow-Headers'])) {
+            $responseHeaders['Access-Control-Allow-Headers'] = implode(', ', $this->cors['Access-Control-Allow-Headers']);
         }
 
         return $responseHeaders;

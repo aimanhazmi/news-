@@ -13,28 +13,28 @@
         "source": "https://github.com/yiisoft/yii2"
     },
     "minimum-stability": "stable",
+    "prefer-stable": true,
     "require": {
-        "php": ">=5.4.0",
-        "yiisoft/yii2": "~2.0.14",
-        "yiisoft/yii2-bootstrap": "~2.0.0",
-        "yiisoft/yii2-swiftmailer": "~2.0.0",
+        "php": ">=7.4",
+        "yiisoft/yii2": "^2.0",
+        "yiisoft/yii2-bootstrap": "^2.0",
+        "yiisoft/yii2-swiftmailer": "^2.0",
         "jenssegers/agent": "^2.6",
         "geoip2/geoip2": "^2.9",
         "yiisoft/yii2-redis": "^2.0"
     },
     "require-dev": {
-        "yiisoft/yii2-debug": "~2.0.0",
-        "yiisoft/yii2-gii": "~2.0.0",
-        "yiisoft/yii2-faker": "~2.0.0",
-
-        "codeception/base": "^2.2.3",
-        "codeception/verify": "~0.3.1",
-        "codeception/specify": "~0.4.3"
+        "yiisoft/yii2-debug": "^2.1",
+        "yiisoft/yii2-gii": "^2.2",
+        "yiisoft/yii2-faker": "^2.0",
+        "codeception/codeception": "^4.1",
+        "codeception/verify": "^1.1",
+        "codeception/specify": "^1.0"
     },
     "config": {
         "process-timeout": 1800,
-        "fxp-asset": {
-            "enabled": false
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true
         }
     },
     "scripts": {
@@ -62,10 +62,14 @@
             ]
         }
     },
-    "repositories": {
-        "packagist": {
+    "repositories": [
+        {
             "type": "composer",
-            "url": "https://packagist.phpcomposer.com"
+            "url": "https://asset-packagist.org"
+        },
+        {
+            "type": "composer",
+            "url": "https://packagist.org"
         }
-    }
+    ]
 }

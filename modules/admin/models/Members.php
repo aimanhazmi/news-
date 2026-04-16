@@ -76,7 +76,7 @@ class Members extends \yii\db\ActiveRecord
     }
 
     /**
-     * Created by 李垒(李雷) <leili@yoozoo.com>.
+     * Created by aiman
      * 页面查询过滤规则
      * 时间区间查询 timeRange
      * 日期区间查询 dateRange

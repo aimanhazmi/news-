@@ -1,8 +1,8 @@
 <?php
 /**
- * Created by lonisy@163.com
- * Author: lilei
- * Date: 2017/8/24
+ * Created by aiman
+ * Author: aiman
+ * Date: 2025/8/24
  * Time: 13:49
  */
 $defaultColumn = Yii::$app->params["defaultColumn"];
@@ -28,7 +28,7 @@ use yii\helpers\Url;
                     <img src="<?php echo $item['img_thumb'] ?? '/web/assets/img/show-thumbnail.jpg'; ?>" />
                     <div class="i">
                         <div class="b">
-                            <div class="c"><?=$item['categoryd_name']?></div>
+                            <div class="c"><?= $item['categoryd_name'] ?? '' ?></div>
                             <div class="t"><?=$item['art_title']?></div>
                         </div>
                     </div>
@@ -108,7 +108,7 @@ use yii\helpers\Url;
                         <img src="<?php echo $item['img_thumb'] ?? '/web/assets/img/show-thumbnail.jpg'; ?>" />
                         <div class="i">
                             <div class="b">
-                                <div class="c"><?=$item['categoryd_name']?></div>
+                                <div class="c"><?= $item['categoryd_name'] ?? '' ?></div>
                                 <div class="t"><?=$item['art_title']?></div>
                             </div>
                         </div>
@@ -163,7 +163,7 @@ use yii\helpers\Url;
 
                         <div class="mini-ps-type">
                             <div class="p-tb-10">
-                                <div class="pull-left" style="padding-right:10px"><?=$item['categoryd_name']?></div>
+                                <div class="pull-left" style="padding-right:10px"><?= $item['categoryd_name'] ?? '' ?></div>
                                 <div style="color:#ccc" class="pull-left">|</div>
                                 <div class="pull-left" style="padding-left:10px">
                                     <?php echo date('Y-m-d', $item['reltime']); ?>
@@ -227,7 +227,7 @@ use yii\helpers\Url;
                         <a href="<?php echo Url::to('/article-' . $item['id'] . '.html'); ?>">
                             <h4 class=""><?=$item['art_title']?></h4>
                         </a>
-                        <div class="p-tb-10"><?=$item['categoryd_name']?> |
+                        <div class="p-tb-10"><?= $item['categoryd_name'] ?? '' ?> |
                             <?php echo date('Y-m-d H:m:s', $item['reltime']); ?>
                         </div>
                         <div><?=$item['description']?></div>
@@ -264,7 +264,7 @@ use yii\helpers\Url;
                             <a href="<?php echo Url::to('/article-' . $item['id'] . '.html'); ?>">
                                 <h4 class=""><?=$item['art_title']?></h4>
                             </a>
-                            <div class="p-tb-10"><?=$item['categoryd_name']?> |
+                            <div class="p-tb-10"><?= $item['categoryd_name'] ?? '' ?> |
                                 <?php echo date('Y-m-d H:m:s', $item['reltime']); ?>
                             </div>
 
@@ -344,7 +344,7 @@ use yii\helpers\Url;
                                 <a href="<?php echo Url::to('/article-' . $item['id'] . '.html'); ?>">
                                     <h4 class=""><?=$item['art_title']?></h4>
                                 </a>
-                                <div class="p-tb-10"><?=$item['categoryd_name']?> |
+                                <div class="p-tb-10"><?= $item['categoryd_name'] ?? '' ?> |
                                     <?php echo date('Y-m-d H:m:s', $item['reltime']); ?>
                                 </div>
                                 <div><?=$item['description']?></div>
@@ -385,7 +385,7 @@ use yii\helpers\Url;
                                 <a href="<?php echo Url::to('/article-' . $item['id'] . '.html'); ?>">
                                     <h4 class=""><?=$item['art_title']?></h4>
                                 </a>
-                                <div class="p-tb-10"><?=$item['categoryd_name']?> |
+                                <div class="p-tb-10"><?= $item['categoryd_name'] ?? '' ?> |
                                     <?php echo date('Y-m-d H:m:s', $item['reltime']); ?>
                                 </div>
                                 <div><?=$item['description']?></div>
@@ -459,7 +459,7 @@ use yii\helpers\Url;
                                         <?=$item['art_title']?>
                                     </a>
                                 </div>
-                                <div class="d"><?=$item['categoryd_name']?></div>
+                                <div class="d"><?= $item['categoryd_name'] ?? '' ?></div>
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -508,7 +508,7 @@ use yii\helpers\Url;
                                                 <?=$item['art_title']?>
                                             </a>
                                         </div>
-                                        <div class="d"><?=$item['categoryd_name']?></div>
+                                        <div class="d"><?= $item['categoryd_name'] ?? '' ?></div>
                                     </div>
                                     <div class="clear"></div>
                                 </div>
@@ -697,17 +697,41 @@ use yii\helpers\Url;
 
                             if (key == 9) {
 
-                                html += '<div style="margin-bottom:15px">';
+                              if(curPageData.advs_info){
+
+                                html += '<div style="margin-bottom:15px;">';
+                                html += '<div>' + curPageData.advs_info.adv_title + '</div>';
+                                html += '<a href="' + curPageData.advs_info.adv_url + '"  rel="nofollow" target="_blank">';
+                                html += '<div class="link-title">' + curPageData.advs_info.adv_title  +
+                                    '</div>';
+                                html += '<div class="sfimg-m-one" style="border:1px solid #F5F5F5">';
+                                html += '<img  src="' + curPageData.advs_info.adv_banner +
+                                    '" alt="' + curPageData.advs_info.adv_title + '">'
+                                html += '</div>'
+
+
+                                html += '</a>';
+                                html += '</div>'
+
+                              }else{
+
+
+                                html += '<div style="margin-bottom:15px;">';
                                 html += '<div>' + value.art_title + '</div>';
                                 html += '<a href="/article-' + value.id + '.html">';
                                 html += '<div class="link-title">' + value.art_title +
                                     '</div>';
-                                html += '<div class="sfimg-m-one">';
-                                html += '<img  src="' + value.img_thumb + '" alt="' + value
-                                    .art_title + '">';
-                                html += '</div>';
+                                html += '<div class="sfimg-m-one" style="border:1px solid #F5F5F5">';
+                                html += '<img  src="' + value.img_thumb +
+                                    '" alt="' + value.art_title + '">'
+                                html += '</div>'
+
+
                                 html += '</a>';
-                                html += '</div>';
+                                html += '</div>'
+
+
+                              }
 
                             } else {
 

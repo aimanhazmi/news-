@@ -1,12 +1,27 @@
 Verify
 ======
 
-BDD Assertions for [PHPUnit][1] and [Codeception][2]
+BDD Assertions for [PHPUnit][1] or [Codeception][2]
+
+[![Latest Stable Version](https://poser.pugx.org/codeception/verify/v/stable)](https://packagist.org/packages/codeception/verify)
+[![Total Downloads](https://poser.pugx.org/codeception/verify/downloads)](https://packagist.org/packages/codeception/verify)
+[![Build Status](https://travis-ci.org/Codeception/Verify.png?branch=master)](https://travis-ci.org/Codeception/Verify)
+[![License](https://poser.pugx.org/codeception/specify/license)](https://packagist.org/packages/codeception/verify)
 
 This is very tiny wrapper for PHPUnit assertions, that are aimed to make tests a bit more readable.
 With [BDD][3] assertions influenced by [Chai][4], [Jasmine][5], and [RSpec][6] your assertions would be a bit closer to natural language.
 
-[![Build Status](https://travis-ci.org/Codeception/Verify.png?branch=master)](https://travis-ci.org/Codeception/Verify) [![Latest Stable Version](https://poser.pugx.org/codeception/verify/v/stable.png)](https://packagist.org/packages/codeception/verify)
+## Installation
+
+*Requires PHP  7.1 or higher*
+
+```
+composer require codeception/verify --dev
+```
+
+## Usage
+
+Use in any test `verify` function instead of `$this->assert*` methods:
 
 ```php
 $user = User::find(1);
@@ -27,8 +42,6 @@ verify('first user rate is 7', $rate)->equals(7);
 verify($rate)->greaterThan(5);
 verify($rate)->lessThan(10);
 verify($rate)->lessOrEquals(7);
-verify($rate)->lessOrEquals(8);
-verify($rate)->greaterOrEquals(7);
 verify($rate)->greaterOrEquals(5);
 
 // true / false / null
@@ -40,7 +53,23 @@ verify($user->getPosts())->notNull();
 // empty
 verify($user->getComments())->isEmpty();
 verify($user->getRoles())->notEmpty();
+
+// throws
+verify($callback)->throws();
+verify($callback)->throws(Exception::class);
+verify($callback)->throws(Exception::class, 'exception message');
+verify($callback)->throws(new Exception());
+verify($callback)->throws(new Exception('message'));
+
+// does not throw
+verify($callback)->doesNotThrow();
+verify($callback)->throws(Exception::class);
+verify($callback)->doesNotThrow(new Exception());
+
+// and many more !
 ```
+
+> ##### :page_facing_up: See Verifiers full list [here.][7]
 
 Shorthands for testing truth/fallacy:
 
@@ -62,41 +91,34 @@ expect_that($user->isActive());
 expect_not($user->isBanned());
 ```
 
-## Installation
+## Extending
 
-### Installing via Composer
+In order to add more assertions you can override `Codeception\Verify` class:
 
-Install composer in a common location or in your project:
+```php
+class MyVerify extends \Codeception\Verify {
 
-```sh
-curl -s http://getcomposer.org/installer | php
-```
+    public function success()
+    {
+    }
 
-Create the `composer.json` file as follows:
-
-```json
-"require-dev": {
-    "codeception/verify": "*"
 }
 ```
 
-Run the composer installer:
+Set the class name to `Codeception\Verify::$override` property to `verify` function use it:
+  
+```php
 
-```sh
-php composer.phar install
+\Codeception\Verify::$override = MyVerify::class;
+
+// access overridden class
+verify('it works')->success();
 ```
-
-## Usage
-
-Use in any test `verify` function instead of `$this->assert*` methods.
-
-## Extending
-
-`Codeception\Verify` class can be extended with custom assertions. You write your own `verify` function that would instantiate your extended version of Verify class.
 
 ## License
 
-Verify is open-sourced software licensed under the [MIT][7] License. © Codeception PHP Testing Framework
+Verify is open-sourced software licensed under the [MIT][8] License.
+© Codeception PHP Testing Framework
 
 [1]: https://phpunit.de/
 [2]: http://codeception.com/
@@ -104,4 +126,5 @@ Verify is open-sourced software licensed under the [MIT][7] License. © Codecept
 [4]: http://chaijs.com/
 [5]: http://jasmine.github.io/
 [6]: http://rspec.info/
-[7]: https://github.com/Codeception/Verify/blob/master/LICENSE
+[7]: /docs/supported_verifiers.md
+[8]: /LICENSE

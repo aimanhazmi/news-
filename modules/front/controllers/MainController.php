@@ -1,11 +1,11 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2018/12/2 0002
+ * Created by aiman
+ * User: aiman
+ * Date: 2025/12/2 0002
  * Time: 下午 1:56
  */
-
+ 
 namespace app\modules\front\controllers;
 use Yii;
 use app\models\Category;
@@ -15,9 +15,11 @@ use app\modules\admin\service\ArticleService;
 use yii\helpers\Url;
 use app\modules\admin\service\CategoryService;
 use app\modules\admin\service\GuestBookService;
+use app\modules\admin\service\MemberAdvsService;
 use app\components\ArrayToolkit;
 use yii\helpers\ArrayHelper;
 use yii\web\Response;
+use app\components\CommonToolkit;
 
 class MainController extends BaseController
 {
@@ -117,7 +119,7 @@ class MainController extends BaseController
         if($_POST['num'] ){
 
           
-
+   
         $categoryTopId1 =1;  // 总分类
      
         $category1          = CategoryService::getInstance()->getModelById($categoryTopId1);
@@ -127,6 +129,28 @@ class MainController extends BaseController
 
         $categorys         = CategoryService::getInstance()->search(['parent_id' =>  $categoryIds1 ]);
         $categoryIds       = ArrayToolkit::column($categorys['items'], 'id');
+
+
+
+
+        $isWechat       = CommonToolkit::getWechat();
+ 
+        if ($isWechat) {
+            $adv_source=['<>','adv_source','淘宝']; 
+        } else {
+            
+            $adv_source=true;
+        }
+
+
+        //随机广告代码开始
+        $Advsid         = MemberAdvsService::getInstance()->findModelAllid($adv_source);
+        $Advrand        = array_rand($Advsid,1);        
+
+       
+        $AdvsInfo       = MemberAdvsService::getInstance()->findModelAll(['id'=>$Advrand]);
+        //随机广告代码结束
+
 
         $showItemsSize  = 10; // 每页条数
               
@@ -144,8 +168,8 @@ class MainController extends BaseController
                 'page_no'    => $_POST['num'] ?? 1,
             ], true);
 
-            $redis->hmset('index:ajax', $key, json_encode($data));
 
+            $redis->hmset('index:ajax', $key, json_encode($data));
          }    
 
 
@@ -154,6 +178,8 @@ class MainController extends BaseController
         $data=['msg'=>'非法请求'];
       }
 
+
+      $data['advs_info']   = $AdvsInfo[0];
       Yii::$app->response->format=Response::FORMAT_JSON;
       return $data;
 
@@ -172,6 +198,19 @@ class MainController extends BaseController
         $tabsCategory  = CategoryService::getInstance()->getModelById($categoryTopId); //查父分类   
         $tabsCategorys = CategoryService::getInstance()->search(['parent_id' => $tabsCategory->parent_id]); //查子分类 
         $Categorys = CategoryService::getInstance()->getModelById($tabsCategory->parent_id);
+
+
+
+
+        //随机广告代码开始
+        $Advsid         = MemberAdvsService::getInstance()->findModelAllid($adv_source);
+        $Advrand        = array_rand($Advsid,1);        
+
+       
+        $AdvsInfo       = MemberAdvsService::getInstance()->findModelAll(['id'=>$Advrand]);
+        //随机广告代码结束
+
+
 
 
         $showItemsSize  = 10; // 每页条数
@@ -199,6 +238,7 @@ class MainController extends BaseController
         $data=['msg'=>'非法请求'];
       }
 
+      $data['advs_info']   = $AdvsInfo[0];
       Yii::$app->response->format=Response::FORMAT_JSON;
       return $data;
 
@@ -220,6 +260,18 @@ class MainController extends BaseController
         $tabsCategory  = CategoryService::getInstance()->getModelById($categoryTopId); //查父分类
         $tabsCategorys = CategoryService::getInstance()->search(['parent_id' => $tabsCategory->id]); //查子分类
         $categoryIds       = ArrayToolkit::column($tabsCategorys['items'], 'id');
+
+
+
+
+        //随机广告代码开始
+        $Advsid         = MemberAdvsService::getInstance()->findModelAllid($adv_source);
+        $Advrand        = array_rand($Advsid,1);        
+
+       
+        $AdvsInfo       = MemberAdvsService::getInstance()->findModelAll(['id'=>$Advrand]);
+        //随机广告代码结束
+
 
 
         $showItemsSize  = 10; // 每页条数
@@ -247,6 +299,7 @@ class MainController extends BaseController
         $data=['msg'=>'非法请求'];
       }
 
+      $data['advs_info']   = $AdvsInfo[0];
       Yii::$app->response->format=Response::FORMAT_JSON;
       return $data;
 
@@ -278,10 +331,8 @@ class MainController extends BaseController
 
     public function actionNotfound()
     {
-        Yii::$app->response->statusCode = 400;
-      //  Yii::$app->response->send();
+        Yii::$app->response->statusCode = 200;
         return $this->renderPartial('Notfound');
-   
     }
 
     public function actionGuestbook()

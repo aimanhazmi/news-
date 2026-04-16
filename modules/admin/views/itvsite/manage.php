@@ -1,7 +1,7 @@
 <?php
 /**
- * Created by lonisy@163.com
- * User: lilei
+ * Created by aiman
+ * User: aiman
  */
 
 use app\modules\admin\models\ItvSite as SelfModel;

@@ -7,16 +7,16 @@ use yii\helpers\Html;
 
 <!DOCTYPE HTML>
 <!--[if lt IE 7 ]> 
-<html lang="zh-CN" class="ie6 ielt8"> 
+<html lang="<?= Yii::$app->language ?>" class="ie6 ielt8" dir="<?= strpos(Yii::$app->language,'ar')===0 ? 'rtl' : 'ltr' ?>"> 
 <![endif]-->
 <!--[if IE 7 ]>    
-<html lang="zh-CN" class="ie7 ielt8"> 
+<html lang="<?= Yii::$app->language ?>" class="ie7 ielt8" dir="<?= strpos(Yii::$app->language,'ar')===0 ? 'rtl' : 'ltr' ?>"> 
 <![endif]-->
 <!--[if IE 8 ]>    
-<html lang="zh-CN" class="ie8"> 
+<html lang="<?= Yii::$app->language ?>" class="ie8" dir="<?= strpos(Yii::$app->language,'ar')===0 ? 'rtl' : 'ltr' ?>"> 
 <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
-<html lang="zh-CN">
+<html lang="<?= Yii::$app->language ?>" dir="<?= strpos(Yii::$app->language,'ar')===0 ? 'rtl' : 'ltr' ?>">
 <!--<![endif]-->
 
 <head>
@@ -24,6 +24,8 @@ use yii\helpers\Html;
     <?= Html::csrfMetaTags() ?>
     <title><?php echo $this->params['title'] ?? ''; ?> - <?php echo $this->params['site_name'] ?? ''; ?></title>
 
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
     <meta name="keywords" content="<?php echo $this->params['keywords'] ?? ''; ?>">
     <meta name="description" content="<?php echo $this->params['description'] ?? ''; ?>">
     <link rel="icon" href="/favicon.ico">
@@ -31,6 +33,9 @@ use yii\helpers\Html;
     <link rel="stylesheet" href="/web/assets/news/css/zui.min.css">
     <script type="text/javascript" src="/web/assets/news/js/jquery-1.9.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/web/assets/bootstrap/css/bootstrap.min.css" />
+    <?php if (strpos(Yii::$app->language,'ar')===0): ?>
+    <link rel="stylesheet" type="text/css" href="/web/assets/css/rtl.css" />
+    <?php endif; ?>
     <script src="/web/assets/news/js/zui.min.js"></script>
     <script type="text/javascript" src="/web/assets/news/js/common.js"></script>
     <script type="text/javascript" src="/web/assets/news/js/script.js"></script>

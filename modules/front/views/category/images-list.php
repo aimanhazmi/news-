@@ -1,8 +1,8 @@
 <?php
 /**
- * Created by lonisy@163.com
- * User: lilei
- * Date: 2018-12-06 22:29:24
+ * Created by aiman
+ * User: aiman
+ * Date: 2025-12-06 22:29:24
  */
 use yii\helpers\Url;
 
@@ -214,32 +214,31 @@ use yii\helpers\Url;
             ]); ?>
 
 </div>
- 
+
 <script src="/web/assets/js/jquery.min.js"></script>
 
 <script type="text/javascript">
-              
-    var url = window.location.href;
-    var reg = /[categorylist-][1-9][0-9]*/g;
-    var urls = url.match(reg);
-    var ids = Math.abs(urls);
-    var idsget = localStorage.getItem("category_post_ids__pull");
+var url = window.location.href;
+var reg = /[categorylist-][1-9][0-9]*/g;
+var urls = url.match(reg);
+var ids = Math.abs(urls);
+var idsget = localStorage.getItem("category_post_ids__pull");
 
-    if (ids) {
-        $(".slcids").each(function() {
-            var id_vs = $(this).children().val();
-            if (ids == id_vs) {
-                $(this).addClass('on');
-            }
-        });
-    }
-
+if (ids) {
+    $(".slcids").each(function() {
+        var id_vs = $(this).children().val();
+        if (ids == id_vs) {
+            $(this).addClass('on');
+        }
+    });
+}
 
 
 
-    if (idsget!=ids) {
-         localStorage.setItem("category_post_ids__pull", ids);         
-    }
+
+if (idsget != ids) {
+    localStorage.setItem("category_post_ids__pull", ids);
+}
 
 
 $(document).ready(function() {
@@ -288,20 +287,51 @@ function upCallback(page) {
 
                         if (key == 9) {
 
-                            html += '<div style="margin-bottom:15px">';
-                            html += '<div>' + value.art_title + '</div>';
-                            html += '<a href="/article-' + value.id + '.html">';
-                            html += '<div class="link-title">'+value.art_title+'</div>';
-                            html += '<div class="sfimg-one">';
-                            html += '<img  src="' + value.img_thumb + '" alt="' + value.art_title + '">';
-                            html += '</div>';
-                            html += '</a>';
-                            html += '</div>';
+                            if (curPageData.advs_info) {
+
+                                html += '<div style="margin-bottom:15px;">';
+                                html += '<div>' + curPageData.advs_info.adv_title +
+                                '</div>';
+                                html += '<a href="' + curPageData.advs_info.adv_url +
+                                    '"  rel="nofollow" target="_blank">';
+                                html += '<div class="link-title">' + curPageData.advs_info
+                                    .adv_title +
+                                    '</div>';
+                                html +=
+                                    '<div class="sfimg-m-one" style="border:1px solid #F5F5F5">';
+                                html += '<img  src="' + curPageData.advs_info.adv_banner +
+                                    '" alt="' + curPageData.advs_info.adv_title + '">'
+                                html += '</div>'
+
+
+                                html += '</a>';
+                                html += '</div>'
+
+                            } else {
+
+
+                                html += '<div style="margin-bottom:15px;">';
+                                html += '<div>' + value.art_title + '</div>';
+                                html += '<a href="/article-' + value.id + '.html">';
+                                html += '<div class="link-title">' + value.art_title +
+                                    '</div>';
+                                html +=
+                                    '<div class="sfimg-m-one" style="border:1px solid #F5F5F5">';
+                                html += '<img  src="' + value.img_thumb +
+                                    '" alt="' + value.art_title + '">'
+                                html += '</div>'
+
+
+                                html += '</a>';
+                                html += '</div>'
+
+
+                            }
 
                         } else {
 
                             html += '<a href="/article-' + value.id + '.html">';
-                            html += '<div class="link-title">'+value.art_title+'</div>';  
+                            html += '<div class="link-title">' + value.art_title + '</div>';
                             html += '<div class="sfimg-m">';
                             html += '<img  imgurl="' + value.img_thumb +
                                 '" src="/web/assets/img/loading001.gif" alt="' + value
@@ -319,7 +349,7 @@ function upCallback(page) {
 
                         html += '<div class="col-xs-5">';
                         html += '<a href="/article-' + value.id + '.html">';
-                        html += '<div class="link-title">'+value.art_title+'</div>';
+                        html += '<div class="link-title">' + value.art_title + '</div>';
                         html += '<div class="sfimg">';
                         html += '<img class="media-object" imgurl="' + value.img_thumb +
                             '" src="/web/assets/img/loading001.gif" alt="' + value

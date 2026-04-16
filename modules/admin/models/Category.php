@@ -118,7 +118,7 @@ class Category extends \yii\db\ActiveRecord
     }
 
     /**
-     * Created by 李垒(李雷) <leili@yoozoo.com>.
+     * Created by aiman
      * 页面查询过滤规则
      * 时间区间查询 timeRange
      * 日期区间查询 dateRange
@@ -304,8 +304,8 @@ class Category extends \yii\db\ActiveRecord
     }
 
     /**
-     * Created by lonisy@163.com
-     * Date: 2018-02-01 12:02:05
+     * Created by aiman
+     * Date: 2025-02-01 12:02:05
      * Description: 生成数列 分类数列
      * @param        $list
      * @param int $pidval
@@ -412,8 +412,8 @@ class Category extends \yii\db\ActiveRecord
     }
 
     /**
-     * Created by 李垒(李雷) <leili@yoozoo.com>.
-     * Date: 2018-03-01 17:32:18
+     * Created by aiman
+     * Date: 2025-03-01 17:32:18
      * Description: 用于读数据时自动转化数据
      */
     public function afterFetch()
@@ -427,8 +427,8 @@ class Category extends \yii\db\ActiveRecord
     }
 
     /**
-     * Created by 李垒(李雷) <leili@yoozoo.com>.
-     * Date: 2018-03-01 17:34:31
+     * Created by aiman
+     * Date: 2025-03-01 17:34:31
      * Description: 用于写数据时自动转化数据
      * @param $model
      */

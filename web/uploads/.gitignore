@@ -1,2 +1,3 @@
+# Keep directory in VCS but ignore files
 *
 !.gitignore

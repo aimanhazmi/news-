@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
+ * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license https://www.yiiframework.com/license/
  */
 
 namespace yii\gii\controllers;
@@ -81,9 +81,8 @@ class DefaultController extends Controller
                     $content = $f->preview();
                     if ($content !== false) {
                         return  '<div class="content">' . $content . '</div>';
-                    } else {
-                        return '<div class="error">Preview is not available for this file type.</div>';
                     }
+                    return '<div class="error">Preview is not available for this file type.</div>';
                 }
             }
         }
@@ -120,9 +119,8 @@ class DefaultController extends Controller
         $method = 'action' . $name;
         if (method_exists($generator, $method)) {
             return $generator->$method();
-        } else {
-            throw new NotFoundHttpException("Unknown generator action: $name");
         }
+        throw new NotFoundHttpException("Unknown generator action: $name");
     }
 
     /**
@@ -139,8 +137,7 @@ class DefaultController extends Controller
             $this->generator->load(Yii::$app->request->post());
 
             return $this->generator;
-        } else {
-            throw new NotFoundHttpException("Code generator not found: $id");
         }
+        throw new NotFoundHttpException("Code generator not found: $id");
     }
 }

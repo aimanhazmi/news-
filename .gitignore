@@ -1,0 +1,24 @@
+# OS / Editor
+.DS_Store
+.vscode/
+.idea/
+
+# Dependencies
+/vendor/
+/node_modules/
+
+# Runtime & caches
+/runtime/
+/web/assets/
+/web/runtime/
+/.cache/
+
+# Local env
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+runtime/*
+

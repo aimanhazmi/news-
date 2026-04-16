@@ -1,8 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
+ * Created by aiman
  * User: whts
- * Date: 2020-05-07
+ * Date: 2025-05-07
  * Time: 10:18
  */
 use yii\helpers\Html;
@@ -16,7 +16,7 @@ use yii\helpers\Html;
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="<?php echo $this->params['keywords'] ?? ''; ?>">
     <meta name="description" content="<?php echo $this->params['description'] ?? ''; ?>">
-    <meta name="author" content="lonisy@163.com">
+    <meta name="author" content="aiman <ammzz2020@gmail.com>">
     <?= Html::csrfMetaTags() ?>
     <title><?php echo $this->params['title'] ?? ''; ?> - <?php echo $this->params['site_name'] ?? ''; ?></title>
 

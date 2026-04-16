@@ -1,6 +1,80 @@
 Yii Framework 2 redis extension Change Log
 ==========================================
 
+2.0.20 June 05, 2025
+--------------------
+
+- Bug CVE-2025-48493: Prevent logging `AUTH` parameters when `YII_DEBUG` is off (samdark)
+- Bug #270: Prevent null parameter on `mb_strlen` to avoid PHP 8.4 implicity nullable types deprecation (tehmaestro)
+
+
+2.0.19 February 13, 2025
+------------------------
+
+- Enh #264: Improve performance of `mget()` for big list of keys (alx-xc, rob006)
+
+
+2.0.18 September 04, 2022
+-------------------------
+
+- Enh #249 Added support to set the redis scheme to tls. Add to configuration: `'scheme' => 'tls'` (tychovbh)
+- Bug #247: `Cache::getValue()` now returns `false` in case of missing key (rhertogh)
+
+
+2.0.17 January 11, 2022
+-----------------------
+
+- Enh #176: Fix reconnect logic bug, add `protected function sendRawCommand()` (ilyaplot)
+
+
+2.0.16 October 04, 2021
+-----------------------
+
+- Enh #223: Add `Connection::$username` for using username for authentication (samdark, rvkulikov)
+
+
+2.0.15 May 05, 2021
+-------------------
+
+- Enh #227: Added support for adjusting PHP context options and parameters. This allows e.g. supporting self-signed certificates (akselikap)
+
+
+2.0.14 November 10, 2020
+------------------------
+
+- Bug #215: Fix `Connection::isActive()` returns `false` when the connection is active (cornernote)
+- Enh #212: Added support for the 'session.use_strict_mode' ini directive in `yii\web\Session` (rhertogh)
+
+
+2.0.13 May 02, 2020
+-------------------
+
+- Enh #210: Add Redis 5.0 stream commands. Read more at [streams intro](https://redis.io/topics/streams-intro) (sartor)
+
+
+2.0.12 March 13, 2020
+---------------------
+
+- Bug #182: Better handle `cache/flush-all` command when cache component is using shared database (rob006)
+- Bug #190: Accept null values (razonyang)
+- Bug #191: getIsActive() returns true when socket is not connected (mdx86)
+- Enh #174: Add ability to set up SSL connection (kulavvy)
+- Enh #195: Use `Instance::ensure()` to initialize `Session::$redis` (rob006)
+- Enh #199: Increase frequency of lock tries when `$timeout` is used in `Mutex::acquire()` (rob006)
+
+
+2.0.11 November 05, 2019
+------------------------
+
+- Enh #66, #134, #135, #136, #142, #143, #147: Support Redis in cluster mode (hofrob)
+
+
+2.0.10 October 22, 2019
+-----------------------
+
+- Enh #188: Added option to wait between connection retry (marty-macfly, rob006)
+
+
 2.0.9 September 23, 2018
 ------------------------
 

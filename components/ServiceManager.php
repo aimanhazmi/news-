@@ -1,8 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: CLZ
- * Date: 2018/1/15
+ * Created by aiman
+ * User: aiman
+ * Date: 2025/1/15
  * Time: 上午11:53
  */
 
@@ -25,7 +25,7 @@ class ServiceManager extends Component
     }
 
     /**
-     * Created by CLZ
+     * Created by aiman
      * @return ServiceManager
      */
 
@@ -43,7 +43,7 @@ class ServiceManager extends Component
     }
 
     /**
-     * Created by CLZ
+     * Created by aiman
      * @param string $serviceName
      * @param array $params
      * @return mixed
@@ -64,7 +64,7 @@ class ServiceManager extends Component
     }
 
     /**
-     * Created by CLZ
+     * Created by aiman
      * @param string $serviceName
      * {
      *      //默认使用根目录下的service   "order",
@@ -114,7 +114,7 @@ class ServiceManager extends Component
     }
 
     /**
-     * Created by CLZ
+     * Created by aiman
      * 重新载入service
      * @param string $serviceName
      * @param array $params

@@ -1,8 +1,8 @@
 <?php
 /**
- * Created by lonisy@163.com
- * User: lilei
- * Date: 2017/12/22
+ * Created by aiman
+ * User: aiman
+ * Date: 2025/12/22
  * Time: 20:41
  */
 
@@ -48,7 +48,7 @@ class ExceptionError
     }
 
     /**
-     * Created by CLZ
+     * Created by aiman
      * 处理service报错
      * @param \Exception $e
      * @param string $default_message

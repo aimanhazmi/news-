@@ -158,7 +158,7 @@ class SysResources extends \yii\db\ActiveRecord
     }
 
     /**
-     * Created by lonisy@163.com
+     * Created by aiman
      * 页面查询过滤规则
      * 时间区间查询 timeRange
      * 日期区间查询 dateRange
@@ -353,8 +353,8 @@ class SysResources extends \yii\db\ActiveRecord
     }
 
     /**
-     * Created by lonisy@163.com
-     * Date: 2018-02-01 12:02:05
+     * Created by aiman
+     * Date: 2025-02-01 12:02:05
      * Description: 生成数列 分类数列
      * @param        $list
      * @param int    $pidval

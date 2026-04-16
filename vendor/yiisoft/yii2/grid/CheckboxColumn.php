@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
+ * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license https://www.yiiframework.com/license/
  */
 
 namespace yii\grid;
@@ -113,6 +113,10 @@ class CheckboxColumn extends Column
      */
     protected function renderDataCellContent($model, $key, $index)
     {
+        if ($this->content !== null) {
+            return parent::renderDataCellContent($model, $key, $index);
+        }
+
         if ($this->checkboxOptions instanceof Closure) {
             $options = call_user_func($this->checkboxOptions, $model, $key, $index, $this);
         } else {

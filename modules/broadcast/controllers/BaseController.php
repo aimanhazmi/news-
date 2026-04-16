@@ -1,8 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
+ * Created by aiman
  * User: whts
- * Date: 2020-05-06
+ * Date: 2025-05-06
  * Time: 11:08
  */
 namespace  app\modules\broadcast\controllers;
@@ -63,7 +63,7 @@ class BaseController extends Controller {
     }
 
     /**
-     * Created by lonisy@163.com
+     * Created by aiman
      * @param int $code
      * @param string $message
      * @return string
@@ -81,7 +81,7 @@ class BaseController extends Controller {
     }
 
     /**
-     * Created by lonisy@163.com
+     * Created by aiman
      * @param $data
      * @return string
      */

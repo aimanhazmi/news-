@@ -1,8 +1,8 @@
 <?php
 /**
- * Created by lonisy@163.com
- * Author: lilei
- * Date: 2017/8/25
+ * Created by aiman
+ * Author: aiman
+ * Date: 2025/8/25
  * Time: 11:34
  */
 
@@ -28,7 +28,7 @@ class MemberAdvsService
     }
 
     /**
-     * Created by 李垒(李雷) <leili@yoozoo.com>.
+     * Created by aiman
      * 服务端分页
      * @param array $params
      * @return mixed
@@ -86,7 +86,7 @@ class MemberAdvsService
 
     /**
      * 生成 Api 分页方法
-     * Created by 李垒(李雷) <leili@yoozoo.com>.
+     * Created by aiman
      * @param Pagination $pagination
      * @param array $items
      * @return mixed text-primary
@@ -106,7 +106,7 @@ class MemberAdvsService
 
 
     /**
-     * Created by 李垒(李雷) <leili@yoozoo.com>.
+     * Created by aiman
      * Description: 创建模型
      * @param array $data
      * @return mixed
@@ -127,7 +127,7 @@ class MemberAdvsService
 
 
     /**
-     * Created by 李垒(李雷) <leili@yoozoo.com>.
+     * Created by aiman
      * Description: 更新模型
      * @param int $id
      * @return bool
@@ -181,7 +181,7 @@ class MemberAdvsService
     }
 
     /**
-     * Created by 李垒(李雷) <leili@yoozoo.com>.
+     * Created by aiman
      * 批量修改, 根据 ids 数组 修改指定字段
      */
     public function batchModify()
@@ -193,7 +193,7 @@ class MemberAdvsService
     }
 
     /**
-     * Created by 李垒(李雷) <leili@yoozoo.com>.
+     * Created by aiman
      * 批量删除
      */
     public function batchDelete()
@@ -211,7 +211,8 @@ class MemberAdvsService
     public function getadvsInfoByadvId(int $id = 0)
     {
         try {
-            $model = $this->findModel(['adv_id' => $id]);
+            $model = $this->findModel(['id' => $id]);
+            // $model = $this->findModel(['adv_id' => $id]);
             if ($model->member_id) {
                 $member = MembersService::getInstance()->getModelById($model->member_id);
                 return $model->toArray() + $member->toArray();
@@ -221,6 +222,9 @@ class MemberAdvsService
         }
         return [];
     }
+
+
+
 
     public function deleteById(int $id = 0)
     {
@@ -250,4 +254,32 @@ class MemberAdvsService
             throw new \Exception('该数据不存在.');
         }
     }
+
+
+    public function findModelAllid($adv_source)
+    {
+        $model = SelfModel::find()->where($adv_source)->select(['id'])->asArray()->all();
+        //$model = SelfModel::find()->where($adv_source)->select(['adv_id'])->asArray()->all();
+        if ( $model !== null) {
+            return $model;
+        } else {
+            throw new \Exception('该数据不存在.');
+        }
+    }
+
+
+
+    public function findModelAll($adv_source)
+    {
+        $model = SelfModel::find()->where($adv_source)->asArray()->all();
+        //$model = SelfModel::find()->where($adv_source)->select(['adv_id'])->asArray()->all();
+        if ( $model !== null) {
+            return $model;
+        } else {
+            throw new \Exception('该数据不存在.');
+        }
+    }
+
+
+
 }

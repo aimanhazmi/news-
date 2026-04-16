@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
+ * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license https://www.yiiframework.com/license/
  */
 
 namespace yii\behaviors;
@@ -17,6 +17,9 @@ use yii\validators\UniqueValidator;
 /**
  * SluggableBehavior automatically fills the specified attribute with a value that can be used a slug in a URL.
  *
+ * Note: This behavior relies on php-intl extension for transliteration. If it is not installed it
+ * falls back to replacements defined in [[\yii\helpers\Inflector::$transliteration]].
+ *
  * To use SluggableBehavior, insert the following code to your ActiveRecord class:
  *
  * ```php
@@ -26,7 +29,7 @@ use yii\validators\UniqueValidator;
  * {
  *     return [
  *         [
- *             'class' => SluggableBehavior::className(),
+ *             'class' => SluggableBehavior::class,
  *             'attribute' => 'title',
  *             // 'slugAttribute' => 'slug',
  *         ],
@@ -47,7 +50,7 @@ use yii\validators\UniqueValidator;
  * {
  *     return [
  *         [
- *             'class' => SluggableBehavior::className(),
+ *             'class' => SluggableBehavior::class,
  *             'slugAttribute' => 'alias',
  *         ],
  *     ];
@@ -108,7 +111,7 @@ class SluggableBehavior extends AttributeBehavior
      */
     public $uniqueValidator = [];
     /**
-     * @var callable slug unique value generator. It is used in case [[ensureUnique]] enabled and generated
+     * @var callable|null slug unique value generator. It is used in case [[ensureUnique]] enabled and generated
      * slug is not unique. This should be a PHP callable with following signature:
      *
      * ```php
@@ -236,8 +239,7 @@ class SluggableBehavior extends AttributeBehavior
      */
     protected function validateSlug($slug)
     {
-        /* @var $validator UniqueValidator */
-        /* @var $model BaseActiveRecord */
+        /** @var UniqueValidator $validator */
         $validator = Yii::createObject(array_merge(
             [
                 'class' => UniqueValidator::className(),
@@ -245,6 +247,7 @@ class SluggableBehavior extends AttributeBehavior
             $this->uniqueValidator
         ));
 
+        /** @var BaseActiveRecord $model */
         $model = clone $this->owner;
         $model->clearErrors();
         $model->{$this->slugAttribute} = $slug;

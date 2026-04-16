@@ -8,6 +8,8 @@ Disallow:/tag
 Disallow:/tags
 Disallow:/tag.html
 Disallow:/tags.html
+Disallow:/search
+Disallow:/search.html
 Disallow:/notfound
 Disallow:/notfound.html
 Sitemap: http://news.yunyitongcheng.com/sitemap.xml

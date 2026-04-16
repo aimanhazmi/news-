@@ -4,11 +4,11 @@ $db     = require __DIR__ . '/' . YII_ENV . '/db.php';
 $redis  = require __DIR__ . '/' . YII_ENV . '/redis.php';
 
 $config           = [
-    'id'           => 'lilei.admin',
+    'id'           => 'aiman.admin',
     'basePath'     => dirname(__DIR__),
     'bootstrap'    => ['log'],
     'charset'      => 'utf-8',
-    'language'     => 'zh-CN',
+    'language'     => 'en-US',
     'timeZone'     => 'Asia/Shanghai',
     'aliases'      => [
         '@bower' => '@vendor/bower-asset',

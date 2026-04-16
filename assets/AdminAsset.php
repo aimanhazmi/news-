@@ -1,8 +1,8 @@
 <?php
 /**
- * Created by lonisy@163.com
- * Author: lilei
- * Date: 2017/8/25
+ * Created by aiman
+ * Author: aiman
+ * Date: 2025/8/25
  * Time: 13:35
  */
 
@@ -18,7 +18,7 @@ class AdminAsset extends AssetBundle
     public $baseUrl  = '@web';
 
     /**
-     * Created by lonisy@163.com
+     * Created by aiman
      * @param $view
      */
     public static function loadBootstrapTablePlugin($view)
@@ -36,7 +36,7 @@ class AdminAsset extends AssetBundle
     }
 
     /**
-     * Created by lonisy@163.com
+     * Created by aiman
      * @param array $Files
      * @param       $view
      */
@@ -48,7 +48,7 @@ class AdminAsset extends AssetBundle
     }
 
     /**
-     * Created by lonisy@163.com
+     * Created by aiman
      * @param array $Files
      * @param       $view
      */
@@ -61,7 +61,7 @@ class AdminAsset extends AssetBundle
 
 
     /**
-     * Created by lonisy@163.com
+     * Created by aiman
      * @param $view
      * @param $file
      */
@@ -71,7 +71,7 @@ class AdminAsset extends AssetBundle
     }
 
     /**
-     * Created by lonisy@163.com
+     * Created by aiman
      * @param $view
      * @param $file
      */

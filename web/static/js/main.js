@@ -463,7 +463,7 @@ $(function () {
     $('.reportrange span').html(moment().subtract('days', 29).format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
     //END PLUGINS DATE RANGE PICKER
 
-    // INIT BREADCRUMBS-TITLE DATA-DEFAULT=TITLE LONISY@163.COM
+    // INIT BREADCRUMBS-TITLE DATA-DEFAULT=TITLE AMMZZ2020@GMAIL.COM
     (function ($) {
 
         var activeDom = $('[data-active-pathinfo]');
@@ -508,7 +508,7 @@ $(function () {
         }
     })($);
 
-    /* lonisy@163.com
+    /* ammzz2020@gmail.com
      * AUTO LOCKSCREEN
      */
     !(function () {
@@ -550,6 +550,5 @@ $(function () {
     })();
 
 });
-
 
 

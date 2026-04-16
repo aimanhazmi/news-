@@ -1,8 +1,8 @@
 <?php
 /**
- * Created by lonisy@163.com
- * Author: lilei
- * Date: 2017/8/25
+ * Created by aiman
+ * Author: aiman
+ * Date: 2025/8/25
  * Time: 11:34
  */
 
@@ -28,7 +28,7 @@ class GuestBookService
     }
 
     /**
-     * Created by 李垒(李雷) <leili@yoozoo.com>.
+     * Created by aiman
      * 服务端分页
      * @param array $params
      * @return mixed
@@ -76,7 +76,7 @@ class GuestBookService
 
     /**
      * 生成 Api 分页方法
-     * Created by 李垒(李雷) <leili@yoozoo.com>.
+     * Created by aiman
      * @param Pagination $pagination
      * @param array $items
      * @return mixed text-primary
@@ -96,7 +96,7 @@ class GuestBookService
 
 
     /**
-     * Created by 李垒(李雷) <leili@yoozoo.com>.
+     * Created by aiman
      * Description: 创建模型
      * @param array $data
      * @return mixed
@@ -120,7 +120,7 @@ class GuestBookService
 
 
     /**
-     * Created by 李垒(李雷) <leili@yoozoo.com>.
+     * Created by aiman
      * Description: 更新模型
      * @param int $id
      * @return bool
@@ -174,7 +174,7 @@ class GuestBookService
     }
 
     /**
-     * Created by 李垒(李雷) <leili@yoozoo.com>.
+     * Created by aiman
      * 批量修改, 根据 ids 数组 修改指定字段
      */
     public function batchModify()
@@ -186,7 +186,7 @@ class GuestBookService
     }
 
     /**
-     * Created by 李垒(李雷) <leili@yoozoo.com>.
+     * Created by aiman
      * 批量删除
      */
     public function batchDelete()

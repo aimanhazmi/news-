@@ -4,5 +4,5 @@ return [
     'view'       => [
         'assetsVer' => time(),
     ],
-    'adminEmail' => 'admin@example.com',
+    'adminEmail' => 'ammzz2020@gmail.com',
 ];

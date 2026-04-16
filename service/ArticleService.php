@@ -1,8 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2018/12/2 0002
+ * Created by aiman
+ * User: aiman
+ * Date: 2025/12/2 0002
  * Time: 上午 9:47
  */
 
@@ -76,61 +76,32 @@ class ArticleService
 
 
  
-    public function articleslist(array $reqData)
- 
-    {
-  
-         $param = array_filter($reqData);
-         
-         $orders = ArticleModel::find()
-         -> select('id')
-         -> where(['category_id'=> $param,'status' => 1])
-         -> orderBy('id desc')
-         -> asArray()
-//       -> groupBy('title') 
-         -> limit(15);
-           
-            
-         $items = ArticleModel::find()
-         -> select('*')
-         -> from(['t1' => $orders]) // 在这里使用了子查询 mender:coclu(bj_ljh)
-         -> join('INNER JOIN',ArticleModel::tableName(), 'article.id=t1.id')
-         -> asArray()
-         -> all();
+public function articleslist(array $reqData)
+{
+    $param = array_filter($reqData);
 
-      
-         foreach ( $items as $k => $v) {
+    $query = ArticleModel::find()
+        ->alias('a')
+        ->select(['a.*', 'c.cate_name AS categoryd_name'])
+        ->leftJoin(CategoryModel::tableName() . ' c', 'a.category_id = c.id')
+        ->andWhere(['a.status' => 1])
+        ->orderBy(['a.updated_at' => SORT_DESC])
+        ->limit(15)
+        ->asArray();
 
-            $orders = CategoryModel::find()
-            -> where(['id'=> $param])  
-            -> asArray()
-            -> all();
-
-
-            foreach ($orders as $key => $value) {
- 
-                if($v['category_id']==$value['id']){
-                    $v['categoryd_name']=$value['cate_name'];
-                }
-              
-           }
-           
-
-           $itemsds[]=$v;
-         
-         }
-
-   
-        //返回数据
-        return [
-
-            "items"    => ArrayHelper::toArray($itemsds),
-
-        ];
-
-
-  
+    // إذا param Array نستخدم IN
+    if (is_array($param)) {
+        $query->andWhere(['in', 'a.category_id', $param]);
+    } else {
+        $query->andWhere(['a.category_id' => $param]);
     }
+
+    $items = $query->all();
+
+    return [
+        "items" => $items,
+    ];
+}
 
    
 
@@ -265,12 +236,12 @@ class ArticleService
         $Articlepvs= ArticleModel::find()
                      ->select('id')
                      ->where($where)
+                     ->orderBy('pv desc')
+                     ->limit(8)
                      ->all();
 
        $Articlepvsd= ArticleModel::find()
                      ->where(['id'=>$Articlepvs])
-                     ->orderBy('pv desc')
-                     ->limit(8)
                      ->all();
 
 
@@ -280,6 +251,7 @@ class ArticleService
         ];
     
     } 
+
 
 
 

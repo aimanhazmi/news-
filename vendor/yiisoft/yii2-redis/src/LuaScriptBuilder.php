@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
+ * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license https://www.yiiframework.com/license/
  */
 
 namespace yii\redis;
@@ -279,13 +279,13 @@ EOF;
                 array_shift($condition);
 
                 return $this->$method($operator, $condition, $columns);
-            } else {
-                throw new Exception('Found unknown operator in query: ' . $operator);
             }
-        } else { // hash format: 'column1' => 'value1', 'column2' => 'value2', ...
 
-            return $this->buildHashCondition($condition, $columns);
+            throw new Exception('Found unknown operator in query: ' . $operator);
         }
+
+        // hash format: 'column1' => 'value1', 'column2' => 'value2', ...
+        return $this->buildHashCondition($condition, $columns);
     }
 
     private function buildHashCondition($condition, &$columns)
@@ -341,9 +341,9 @@ EOF;
         }
         if (!empty($parts)) {
             return '(' . implode(") $operator (", $parts) . ')';
-        } else {
-            return '';
         }
+
+        return '';
     }
 
     private function buildBetweenCondition($operator, $operands, &$columns)
@@ -378,7 +378,9 @@ EOF;
 
         if (is_array($column) && count($column) > 1) {
             return $this->buildCompositeInCondition($operator, $column, $values, $columns);
-        } elseif (is_array($column)) {
+        }
+
+        if (is_array($column)) {
             $column = reset($column);
         }
         $columnAlias = $this->addColumn($column, $columns);

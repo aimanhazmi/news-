@@ -1,12 +1,13 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
+ * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license https://www.yiiframework.com/license/
  */
 
 namespace yii\db\sqlite;
 
+use Yii;
 use yii\base\NotSupportedException;
 use yii\db\CheckConstraint;
 use yii\db\ColumnSchema;
@@ -24,8 +25,8 @@ use yii\helpers\ArrayHelper;
 /**
  * Schema is the class for retrieving metadata from a SQLite (2/3) database.
  *
- * @property string $transactionIsolationLevel The transaction isolation level to use for this transaction.
- * This can be either [[Transaction::READ_UNCOMMITTED]] or [[Transaction::SERIALIZABLE]].
+ * @property-write string $transactionIsolationLevel The transaction isolation level to use for this
+ * transaction. This can be either [[Transaction::READ_UNCOMMITTED]] or [[Transaction::SERIALIZABLE]].
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -159,7 +160,7 @@ class Schema extends \yii\db\Schema implements ConstraintFinderInterface
         $sql = $this->db->createCommand('SELECT `sql` FROM `sqlite_master` WHERE name = :tableName', [
             ':tableName' => $tableName,
         ])->queryScalar();
-        /** @var $code SqlToken[]|SqlToken[][]|SqlToken[][][] */
+        /** @var SqlToken[]|SqlToken[][]|SqlToken[][][] $code */
         $code = (new SqlTokenizer($sql))->tokenize();
         $pattern = (new SqlTokenizer('any CREATE any TABLE any()'))->tokenize();
         if (!$code[0]->matches($pattern, 0, $firstMatchIndex, $lastMatchIndex)) {
@@ -206,7 +207,7 @@ class Schema extends \yii\db\Schema implements ConstraintFinderInterface
      */
     public function createQueryBuilder()
     {
-        return new QueryBuilder($this->db);
+        return Yii::createObject(QueryBuilder::className(), [$this->db]);
     }
 
     /**
@@ -215,7 +216,7 @@ class Schema extends \yii\db\Schema implements ConstraintFinderInterface
      */
     public function createColumnSchemaBuilder($type, $length = null)
     {
-        return new ColumnSchemaBuilder($type, $length);
+        return Yii::createObject(ColumnSchemaBuilder::className(), [$type, $length]);
     }
 
     /**
@@ -362,7 +363,7 @@ class Schema extends \yii\db\Schema implements ConstraintFinderInterface
      * This can be either [[Transaction::READ_UNCOMMITTED]] or [[Transaction::SERIALIZABLE]].
      * @throws NotSupportedException when unsupported isolation levels are used.
      * SQLite only supports SERIALIZABLE and READ UNCOMMITTED.
-     * @see http://www.sqlite.org/pragma.html#pragma_read_uncommitted
+     * @see https://www.sqlite.org/pragma.html#pragma_read_uncommitted
      */
     public function setTransactionIsolationLevel($level)
     {
@@ -376,6 +377,19 @@ class Schema extends \yii\db\Schema implements ConstraintFinderInterface
             default:
                 throw new NotSupportedException(get_class($this) . ' only supports transaction isolation levels READ UNCOMMITTED and SERIALIZABLE.');
         }
+    }
+
+    /**
+     * Returns table columns info.
+     * @param string $tableName table name
+     * @return array
+     */
+    private function loadTableColumnsInfo($tableName)
+    {
+        $tableColumns = $this->db->createCommand('PRAGMA TABLE_INFO (' . $this->quoteValue($tableName) . ')')->queryAll();
+        $tableColumns = $this->normalizePdoRowKeyCase($tableColumns, true);
+
+        return ArrayHelper::index($tableColumns, 'cid');
     }
 
     /**
@@ -397,9 +411,7 @@ class Schema extends \yii\db\Schema implements ConstraintFinderInterface
              * SQLite may not have an "origin" column in INDEX_LIST
              * See https://www.sqlite.org/src/info/2743846cdba572f6
              */
-            $tableColumns = $this->db->createCommand('PRAGMA TABLE_INFO (' . $this->quoteValue($tableName) . ')')->queryAll();
-            $tableColumns = $this->normalizePdoRowKeyCase($tableColumns, true);
-            $tableColumns = ArrayHelper::index($tableColumns, 'cid');
+            $tableColumns = $this->loadTableColumnsInfo($tableName);
         }
         $result = [
             'primaryKey' => null,
@@ -436,6 +448,25 @@ class Schema extends \yii\db\Schema implements ConstraintFinderInterface
                 ]);
             }
         }
+
+        if ($result['primaryKey'] === null) {
+            /*
+             * Additional check for PK in case of INTEGER PRIMARY KEY with ROWID
+             * See https://www.sqlite.org/lang_createtable.html#primkeyconst
+             */
+            if ($tableColumns === null) {
+                $tableColumns = $this->loadTableColumnsInfo($tableName);
+            }
+            foreach ($tableColumns as $tableColumn) {
+                if ($tableColumn['pk'] > 0) {
+                    $result['primaryKey'] = new Constraint([
+                        'columnNames' => [$tableColumn['name']],
+                    ]);
+                    break;
+                }
+            }
+        }
+
         foreach ($result as $type => $data) {
             $this->setTableMetadata($tableName, $type, $data);
         }

@@ -1,8 +1,8 @@
 <?php
 /**
- * Created by lonisy@163.com
- * User: lilei
- * Date: 2018/1/22
+ * Created by aiman
+ * User: aiman
+ * Date: 2025/1/22
  * Time: 23:28
  */
 
@@ -30,7 +30,7 @@ class FileService extends Object
     }
 
     /**
-     * Created by lonisy@163.com
+     * Created by aiman
      * @param string $name
      * @return mixed
      * @throws \Exception
@@ -79,7 +79,7 @@ class FileService extends Object
     }
 
     /**
-     * Created by lonisy@163.com
+     * Created by aiman
      * 文件分发
      * @param string $baseDir 文件存放目录
      * @param array  $files   绝对路径

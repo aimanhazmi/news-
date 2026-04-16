@@ -1,0 +1,14 @@
+RewriteEngine On
+
+# Serve existing files and directories directly
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# If requested upload image missing, serve placeholder thumbnail
+RewriteCond %{REQUEST_URI} ^/uploads/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^uploads/.* web/assets/img/show-thumbnail.jpg [L]
+
+# Route everything else to Yii front controller
+RewriteRule . index.php [L]

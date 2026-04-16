@@ -1,8 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Wht
- * Date: 2018/12/2 0002
+ * Created by aiman
+ * User: aiman
+ * Date: 2025/12/2 0002
  * Time: 上午 11:44
  */
 
@@ -17,7 +17,7 @@ class Category extends ActiveRecord
      * 获得分类
      * @return array
      */
-    public function getCategoryAll()
+    public static function getCategoryAll()
     {
         $data = self::find()->all();
         if (empty($data)) return [];

@@ -1,7 +1,7 @@
 <?php
 /**
- * Created by lonisy@163.com
- * User: lilei
+ * Created by aiman
+ * User: aiman
  */
 
 namespace app\modules\admin\controllers;
@@ -20,7 +20,7 @@ class SyssiteController extends BaseController
     }
 
     /**
-     * Created by lonisy@163.com
+     * Created by aiman
      * RESTful api
      * @param int $id
      * @return string
@@ -50,7 +50,7 @@ class SyssiteController extends BaseController
     }
 
     /**
-     * Created by lonisy@163.com
+     * Created by aiman
      * 批量操作 Batch operate
      * @return string
      */

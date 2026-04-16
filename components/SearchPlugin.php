@@ -1,8 +1,8 @@
 <?php
 /**
- * Created by lonisy@163.com
- * User: lilei
- * Date: 2018/1/3
+ * Created by aiman
+ * User: aiman
+ * Date: 2025/1/3
  * Time: 11:50
  */
 
@@ -13,7 +13,7 @@ use yii\helpers\Html;
 class SearchPlugin
 {
     /**
-     * Created by lonisy@163.com
+     * Created by aiman
      * @param array $configs
      * @return string
      */
@@ -45,7 +45,7 @@ class SearchPlugin
     }
 
     /**
-     * Created by lonisy@163.com
+     * Created by aiman
      * 日期范围控件 dom
      * @param array $config
      * @return string
@@ -74,7 +74,7 @@ class SearchPlugin
     }
 
     /**
-     * Created by lonisy@163.com
+     * Created by aiman
      * 单一字段控件 dom
      * @param array $config
      * @return bool|string
@@ -93,7 +93,7 @@ class SearchPlugin
     }
 
     /**
-     * Created by lonisy@163.com
+     * Created by aiman
      * 普通单选列表
      * @param array $config
      * @return bool|string
@@ -115,7 +115,7 @@ class SearchPlugin
     }
 
     /**
-     * Created by lonisy@163.com
+     * Created by aiman
      * 多选表单
      * @param array $config
      * @return bool|string
@@ -137,7 +137,7 @@ class SearchPlugin
     }
 
     /**
-     * Created by lonisy@163.com
+     * Created by aiman
      * 可搜索表单 需要实体数据 非异步
      * @param array $config
      * @return bool|string

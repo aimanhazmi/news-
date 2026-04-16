@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
+ * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license https://www.yiiframework.com/license/
  */
 
 namespace yii\base;
@@ -19,13 +19,26 @@ namespace yii\base;
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
+ *
+ * @template T of Component
+ *
+ * @phpstan-property T|null $owner
+ * @psalm-property T|null $owner
  */
 class Behavior extends BaseObject
 {
     /**
      * @var Component|null the owner of this behavior
+     *
+     * @phpstan-var T|null
+     * @psalm-var T|null
      */
     public $owner;
+
+    /**
+     * @var array Attached events handlers
+     */
+    private $_attachedEvents = [];
 
 
     /**
@@ -72,6 +85,7 @@ class Behavior extends BaseObject
     {
         $this->owner = $owner;
         foreach ($this->events() as $event => $handler) {
+            $this->_attachedEvents[$event] = $handler;
             $owner->on($event, is_string($handler) ? [$this, $handler] : $handler);
         }
     }
@@ -85,9 +99,10 @@ class Behavior extends BaseObject
     public function detach()
     {
         if ($this->owner) {
-            foreach ($this->events() as $event => $handler) {
+            foreach ($this->_attachedEvents as $event => $handler) {
                 $this->owner->off($event, is_string($handler) ? [$this, $handler] : $handler);
             }
+            $this->_attachedEvents = [];
             $this->owner = null;
         }
     }

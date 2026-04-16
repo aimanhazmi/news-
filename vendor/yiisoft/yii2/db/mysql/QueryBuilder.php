@@ -1,14 +1,16 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
+ * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license https://www.yiiframework.com/license/
  */
 
 namespace yii\db\mysql;
 
 use yii\base\InvalidArgumentException;
 use yii\base\NotSupportedException;
+use yii\caching\CacheInterface;
+use yii\caching\DbCache;
 use yii\db\Exception;
 use yii\db\Expression;
 use yii\db\Query;
@@ -39,9 +41,6 @@ class QueryBuilder extends \yii\db\QueryBuilder
         Schema::TYPE_FLOAT => 'float',
         Schema::TYPE_DOUBLE => 'double',
         Schema::TYPE_DECIMAL => 'decimal(10,0)',
-        Schema::TYPE_DATETIME => 'datetime',
-        Schema::TYPE_TIMESTAMP => 'timestamp',
-        Schema::TYPE_TIME => 'time',
         Schema::TYPE_DATE => 'date',
         Schema::TYPE_BINARY => 'blob',
         Schema::TYPE_BOOLEAN => 'tinyint(1)',
@@ -49,6 +48,16 @@ class QueryBuilder extends \yii\db\QueryBuilder
         Schema::TYPE_JSON => 'json'
     ];
 
+
+    /**
+     * {@inheritdoc}
+     */
+    public function init()
+    {
+        parent::init();
+
+        $this->typeMap = array_merge($this->typeMap, $this->defaultTimeTypeMap());
+    }
 
     /**
      * {@inheritdoc}
@@ -81,7 +90,7 @@ class QueryBuilder extends \yii\db\QueryBuilder
             $row = array_values($row);
             $sql = $row[1];
         }
-        if (preg_match_all('/^\s*`(.*?)`\s+(.*?),?$/m', $sql, $matches)) {
+        if (preg_match_all('/^\s*[`"](.*?)[`"]\s+(.*?),?$/m', $sql, $matches)) {
             foreach ($matches[1] as $i => $c) {
                 if ($c === $oldName) {
                     return "ALTER TABLE $quotedTable CHANGE "
@@ -142,24 +151,6 @@ class QueryBuilder extends \yii\db\QueryBuilder
     }
 
     /**
-     * {@inheritdoc}
-     * @throws NotSupportedException this is not supported by MySQL.
-     */
-    public function addCheck($name, $table, $expression)
-    {
-        throw new NotSupportedException(__METHOD__ . ' is not supported by MySQL.');
-    }
-
-    /**
-     * {@inheritdoc}
-     * @throws NotSupportedException this is not supported by MySQL.
-     */
-    public function dropCheck($name, $table)
-    {
-        throw new NotSupportedException(__METHOD__ . ' is not supported by MySQL.');
-    }
-
-    /**
      * Creates a SQL statement for resetting the sequence value of a table's primary key.
      * The sequence will be reset such that the primary key of the next new row inserted
      * will have the specified value or 1.
@@ -214,8 +205,8 @@ class QueryBuilder extends \yii\db\QueryBuilder
             }
         } elseif ($this->hasOffset($offset)) {
             // limit is not optional in MySQL
-            // http://stackoverflow.com/a/271650/1106908
-            // http://dev.mysql.com/doc/refman/5.0/en/select.html#idm47619502796240
+            // https://stackoverflow.com/questions/255517/mysql-offset-infinite-rows/271650#271650
+            // https://dev.mysql.com/doc/refman/5.7/en/select.html#idm46193796386608
             $sql = "LIMIT $offset, 18446744073709551615"; // 2^64-1
         }
 
@@ -250,10 +241,17 @@ class QueryBuilder extends \yii\db\QueryBuilder
         if (!$columns instanceof Query && empty($names)) {
             $tableSchema = $this->db->getSchema()->getTableSchema($table);
             if ($tableSchema !== null) {
-                $columns = !empty($tableSchema->primaryKey) ? $tableSchema->primaryKey : [reset($tableSchema->columns)->name];
+                if (!empty($tableSchema->primaryKey)) {
+                    $columns = $tableSchema->primaryKey;
+                    $defaultValue = 'NULL';
+                } else {
+                    $columns = [reset($tableSchema->columns)->name];
+                    $defaultValue = 'DEFAULT';
+                }
+
                 foreach ($columns as $name) {
                     $names[] = $this->db->quoteColumnName($name);
-                    $placeholders[] = 'DEFAULT';
+                    $placeholders[] = $defaultValue;
                 }
             }
         }
@@ -270,6 +268,10 @@ class QueryBuilder extends \yii\db\QueryBuilder
         list($uniqueNames, , $updateNames) = $this->prepareUpsertColumns($table, $insertColumns, $updateColumns);
         if (empty($uniqueNames)) {
             return $insertSql;
+        }
+        if ($updateNames === []) {
+            // there are no columns to update
+            $updateColumns = false;
         }
 
         if ($updateColumns === true) {
@@ -292,14 +294,22 @@ class QueryBuilder extends \yii\db\QueryBuilder
     public function addCommentOnColumn($table, $column, $comment)
     {
         // Strip existing comment which may include escaped quotes
-        $definition = trim(preg_replace("/COMMENT '(?:''|[^'])*'/i", '',
-            $this->getColumnDefinition($table, $column)));
+        $definition = trim(preg_replace("/COMMENT '(?:''|[^'])*'/i", '', $this->getColumnDefinition($table, $column)));
 
-        return 'ALTER TABLE ' . $this->db->quoteTableName($table)
+        $checkRegex = '/CHECK *(\(([^()]|(?-2))*\))/';
+        $check = preg_match($checkRegex, $definition, $checkMatches);
+        if ($check === 1) {
+            $definition = preg_replace($checkRegex, '', $definition);
+        }
+        $alterSql = 'ALTER TABLE ' . $this->db->quoteTableName($table)
             . ' CHANGE ' . $this->db->quoteColumnName($column)
             . ' ' . $this->db->quoteColumnName($column)
             . (empty($definition) ? '' : ' ' . $definition)
             . ' COMMENT ' . $this->db->quoteValue($comment);
+        if ($check === 1) {
+            $alterSql .= ' ' . $checkMatches[0];
+        }
+        return $alterSql;
     }
 
     /**
@@ -329,13 +339,21 @@ class QueryBuilder extends \yii\db\QueryBuilder
         return $this->addCommentOnTable($table, '');
     }
 
+    /**
+     * {@inheritdoc}
+     * @since 2.0.8
+     */
+    public function selectExists($rawSql)
+    {
+        return 'SELECT EXISTS(' . $rawSql . ') AS ' . $this->db->quoteColumnName('result');
+    }
 
     /**
      * Gets column definition.
      *
      * @param string $table table name
      * @param string $column column name
-     * @return null|string the column definition
+     * @return string|null the column definition
      * @throws Exception in case when table does not contain column
      */
     private function getColumnDefinition($table, $column)
@@ -351,7 +369,7 @@ class QueryBuilder extends \yii\db\QueryBuilder
             $row = array_values($row);
             $sql = $row[1];
         }
-        if (preg_match_all('/^\s*`(.*?)`\s+(.*?),?$/m', $sql, $matches)) {
+        if (preg_match_all('/^\s*[`"](.*?)[`"]\s+(.*?),?$/m', $sql, $matches)) {
             foreach ($matches[1] as $i => $c) {
                 if ($c === $column) {
                     return $matches[2][$i];
@@ -362,4 +380,57 @@ class QueryBuilder extends \yii\db\QueryBuilder
         return null;
     }
 
+    /**
+     * Checks the ability to use fractional seconds.
+     *
+     * @return bool
+     * @see https://dev.mysql.com/doc/refman/5.6/en/fractional-seconds.html
+     */
+    private function supportsFractionalSeconds()
+    {
+        // use cache to prevent opening MySQL connection
+        // https://github.com/yiisoft/yii2/issues/13749#issuecomment-481657224
+        $key = [__METHOD__, $this->db->dsn];
+        $cache = null;
+        $schemaCache = (\Yii::$app && is_string($this->db->schemaCache)) ? \Yii::$app->get($this->db->schemaCache, false) : $this->db->schemaCache;
+        // If the `$schemaCache` is an instance of `DbCache` we don't use it to avoid a loop
+        if ($this->db->enableSchemaCache && $schemaCache instanceof CacheInterface && !($schemaCache instanceof DbCache)) {
+            $cache = $schemaCache;
+        }
+        $version = $cache ? $cache->get($key) : null;
+        if (!$version) {
+            $version = $this->db->getSlavePdo(true)->getAttribute(\PDO::ATTR_SERVER_VERSION);
+            if ($cache) {
+                $cache->set($key, $version, $this->db->schemaCacheDuration);
+            }
+        }
+
+        return version_compare($version, '5.6.4', '>=');
+    }
+
+    /**
+     * Returns the map for default time type.
+     * If the version of MySQL is lower than 5.6.4, then the types will be without fractional seconds,
+     * otherwise with fractional seconds.
+     *
+     * @return array
+     */
+    private function defaultTimeTypeMap()
+    {
+        $map = [
+            Schema::TYPE_DATETIME => 'datetime',
+            Schema::TYPE_TIMESTAMP => 'timestamp',
+            Schema::TYPE_TIME => 'time',
+        ];
+
+        if ($this->supportsFractionalSeconds()) {
+            $map = [
+                Schema::TYPE_DATETIME => 'datetime(0)',
+                Schema::TYPE_TIMESTAMP => 'timestamp(0)',
+                Schema::TYPE_TIME => 'time(0)',
+            ];
+        }
+
+        return $map;
+    }
 }

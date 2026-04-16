@@ -1,8 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: CLZ
- * Date: 2018/1/9
+ * Created by aiman
+ * User: aiman
+ * Date: 2025/1/9
  * Time: 上午12:32
  */
 
@@ -15,7 +15,7 @@ class RequestLock
     const LOCK_TIME = 30;
 
     /**
-     * Created by CLZ
+     * Created by aiman
      * 加锁
      * @param $key
      * @throws \Exception
@@ -35,7 +35,7 @@ class RequestLock
     }
 
     /**
-     * Created by CLZ
+     * Created by aiman
      * 解锁
      * @param $key
      */

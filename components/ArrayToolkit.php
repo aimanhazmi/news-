@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Created by lonisy@163.com
- * Author: lilei
- * Date: 2017/09/11
+ * Created by aiman
+ * Author: aiman
+ * Date: 2025/09/11
  * Time: 14:00
  */
 
@@ -190,7 +190,7 @@ class ArrayToolkit
 
 
     /**
-     * Created by lonisy@163.com
+     * Created by aiman
      * @param array $arr 将要排序的数组
      * @param string $keys 指定排序的key
      * @param string $type 排序类型 asc | desc
@@ -211,7 +211,7 @@ class ArrayToolkit
     }
 
     /**
-     * Created by lonisy@163.com
+     * Created by aiman
      * 根据某一特定键(下标)取出一维或多维数组的所有值；不用循环的理由是考虑大数组的效率，把数组序列化，然后根据序列化结构的特点提取需要的字符串
      * @param array $array
      * @param $string

@@ -17,6 +17,7 @@ use yii\db\ActiveQuery;
  * @property string adv_age
  * @property string adv_height
  * @property string adv_gj
+ * @property string adv_source
  * @property string adv_xj
  * @property string adv_gf
  * @property integer adv_grade
@@ -58,7 +59,7 @@ class MemberAdvs extends \yii\db\ActiveRecord
             [['adv_price'], 'number'],
              [['adv_url'], 'required'],
              [['adv_url'], 'url'],
-            [['adv_banner','adv_title'], 'string'],
+            [['adv_banner','adv_title','adv_source'], 'string'],
             [['adv_banner'], 'required'],
             [['adv_grade'],'string', 'max' => 1],
             [['member_id'],'match','pattern'=>'/^[1-9]d*/','message'=>'请选择负责人信息'],
@@ -71,6 +72,7 @@ class MemberAdvs extends \yii\db\ActiveRecord
             'id'           => '自增ID',
             'adv_id'     => '新闻Id',
             'member_id'    => '负责人',  
+            'adv_source'  => '广告来源',
             'adv_grade'  => '等级', //  1=>一级; 2=>二级; 3=>三级,
             'adv_price'  => '价格',
             'adv_title'   => '广告标题',
@@ -86,6 +88,7 @@ class MemberAdvs extends \yii\db\ActiveRecord
         return [
             'id'           => ['comment' => '广告ID'],
             'adv_id'     => ['comment' => '新闻ID'],
+            'adv_source'  => ['comment' => '广告来源'],
             //'adv_name'   => ['comment' => '名称'],
             //'member_id'    => ['comment' => '管理员Id'],
             'member_name'  => ['comment' => '负责人'],
@@ -178,6 +181,7 @@ class MemberAdvs extends \yii\db\ActiveRecord
               'adv_grade'  => ['type' => 'radio', 'data' => $this->getFieldStatusData("adv_grade")],
               'adv_price'  => ['type' => 'text'],
               'adv_title'   => ['type' => 'text'],
+              'adv_source'   => ['type' => 'text'],
               'adv_url'    => ['type' => 'text'],
         ];
     }

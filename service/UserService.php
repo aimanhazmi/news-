@@ -1,8 +1,8 @@
 <?php
 /**
- * Created by lonisy@163.com
- * User: lilei
- * Date: 2018/4/26
+ * Created by aiman
+ * User: aiman
+ * Date: 2025/4/26
  * Time: 16:28
  */
 
@@ -108,8 +108,8 @@ class UserService
     }
 
     /**
-     * Created by lonisy@163.com
-     * Date: 2018-04-27 22:52:18
+     * Created by aiman
+     * Date: 2025-04-27 22:52:18
      * Description: autoAnalysis
      * @return bool
      * @throws \Exception

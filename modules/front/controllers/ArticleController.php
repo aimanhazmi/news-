@@ -1,8 +1,8 @@
 <?php
 /**
- * Created by lonisy@163.com
- * User: lilei
- * Date: 2018-12-05 22:28:44
+ * Created by aiman
+ * User: aiman
+ * Date: 2025-12-05 22:28:44
  */
 
 namespace app\modules\front\controllers;
@@ -16,7 +16,8 @@ use app\modules\admin\service\CategoryService;
 use app\modules\admin\service\MemberAdvsService;
 
 use app\components\ArrayToolkit;
-
+use app\components\MobilePlug;
+use app\components\CommonToolkit;
 
 class ArticleController extends BaseController
 {
@@ -31,12 +32,44 @@ class ArticleController extends BaseController
             // 更新PV
             SelfService::getInstance()->updateArticleView(['id' => $id]);
 
-            $article                    = ArticleService::getInstance()->getModelByIdf($id);
-            $articleData                = $article->toArray();
-            $AdvsInfo                 = MemberAdvsService::getInstance()->getadvsInfoByadvId($id);
-            $articleData['advs_info'] = $AdvsInfo;
+            $article        = ArticleService::getInstance()->getModelByIdf($id);
+            $articleData    = $article->toArray();
+    
+            $isWechat       = CommonToolkit::getWechat();
+ 
+            if ($isWechat) {
+                $adv_source=['<>','adv_source','淘宝']; 
+            } else {
+                
+                $adv_source=true;
+            }
+    
+
+            //随机广告代码开始
+            $Advsid         = MemberAdvsService::getInstance()->findModelAllid($adv_source);
+            $Advrand        = array_rand($Advsid,18);        
+
+           
+            $AdvsInfo       = MemberAdvsService::getInstance()->findModelAll(['id'=>$Advrand]);
+            //随机广告代码结束
+
+
+            //$AdvsInfo       = MemberAdvsService::getInstance()->getadvsInfoByadvId($id);  //指定广告到当前内容页面
+
+
+
+            
+
+
+            $articleData['advs_info']   = $AdvsInfo;
             $articleData['title']       = $articleData['art_title'];
+
+
+
             $this->initSiteMeta($articleData);
+
+
+
 
             $category  = CategoryService::getInstance()->getModelById($categoryTopId);
             $categorys = CategoryService::getInstance()->search(['parent_id' => $category->id]);
@@ -65,13 +98,19 @@ class ArticleController extends BaseController
    
 
 
-            foreach ($category_article as $key => $value)
-             {  
-                if($value['id']==$articleData['category_id'])
-                  { 
-                    $articleData['category_names']=$value['title'];
-                  }
-             }            
+            $categoryMap = [];
+            foreach ($category_article as $value) {
+                $categoryMap[$value['id']] = $value['title'];
+            }
+
+            $articleData['category_names'] = $categoryMap[$articleData['category_id']] ?? '';
+
+            foreach (['articles', 'articles_top_pv', 'articles_top_times'] as $listName) {
+                foreach ($$listName['items'] as &$item) {
+                    $item['category_names'] = $categoryMap[$item['category_id']] ?? '';
+                }
+                unset($item);
+            }
  
 
         } catch (\Exception $e) {
@@ -110,24 +149,33 @@ class ArticleController extends BaseController
 
     public function actionNews($id = 0)
     {
-        $newsCategoryId = 7;  // 行业资讯总分类ID
-        $showItemsSize  = 10; // 每页条数
-        $newsCategory   = CategoryService::getInstance()->getModelById($newsCategoryId);
-        $newsCategorys  = CategoryService::getInstance()->search(['parent_id' => $newsCategory->id]);
-        if ($id > 0) {
-            $data = ArticleService::getInstance()->search([
-                'category_id' => $id,
-                'page_size'   => $showItemsSize,
-                'page_no'     => $_GET['page_no'] ?? 1,
-            ]);
-        } else {
-            $newsCategoryIds = ArrayToolkit::column($newsCategorys['items'], 'id');
-            $data            = ArticleService::getInstance()->search([
-                'category_ids' => $newsCategoryIds,
-                'page_size'    => $showItemsSize,
-                'page_no'      => $_GET['page_no'] ?? 1,
-            ]);
+        try {
+            $newsCategoryId = 7;  // 行业资讯总分类ID
+            $showItemsSize  = 10; // 每页条数
+            $newsCategory   = CategoryService::getInstance()->getModelById($newsCategoryId);
+            $newsCategorys  = CategoryService::getInstance()->search(['parent_id' => $newsCategory->id]);
+            $pageNo         = $_GET['page_no'] ?? 1;
+            if ($id > 0) {
+                $data = ArticleService::getInstance()->search([
+                    'category_id' => $id,
+                    'page_size'   => $showItemsSize,
+                    'page_no'     => $pageNo,
+                ], true);
+            } else {
+                $newsCategoryIds = ArrayToolkit::column($newsCategorys['items'] ?? [], 'id');
+                $data            = ArticleService::getInstance()->search([
+                    'category_ids' => $newsCategoryIds,
+                    'page_size'    => $showItemsSize,
+                    'page_no'      => $pageNo,
+                ], true);
+            }
+        } catch (\Exception $e) {
+            // 允许空列表，不 اعتبرها خطأ يعيد 404
+            $data         = ['items' => [], 'first' => 1, 'current' => 1, 'before' => 1, 'next' => 1, 'limit' => 0, 'total_items' => 0, 'total_pages' => 1];
+            $newsCategory = $newsCategory ?? null;
+            $newsCategorys = $newsCategorys ?? ['items' => []];
         }
+
         return $this->render('contents-list', [
             'data'             => $data,
             "category"         => $newsCategory,

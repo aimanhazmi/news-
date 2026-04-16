@@ -1,7 +1,7 @@
 <?php
 /**
- * Created by lonisy@163.com
- * User: lilei
+ * Created by aiman
+ * User: aiman
  */
 
 use app\models\ItvRooms as SelfModel;

@@ -6,8 +6,8 @@
 use yii\helpers\StringHelper;
 
 
-/* @var $this yii\web\View */
-/* @var $generator yii\gii\generators\crud\Generator */
+/** @var yii\web\View $this */
+/** @var yii\gii\generators\crud\Generator $generator */
 
 $modelClass = StringHelper::basename($generator->modelClass);
 $searchModelClass = StringHelper::basename($generator->searchModelClass);
@@ -24,7 +24,6 @@ echo "<?php\n";
 
 namespace <?= StringHelper::dirname(ltrim($generator->searchModelClass, '\\')) ?>;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use <?= ltrim($generator->modelClass, '\\') . (isset($modelAlias) ? " as $modelAlias" : "") ?>;
@@ -58,10 +57,11 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
      * Creates data provider instance with search query applied
      *
      * @param array $params
+     * @param string|null $formName Form name to be used into `->load()` method.
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $formName = null)
     {
         $query = <?= isset($modelAlias) ? $modelAlias : $modelClass ?>::find();
 
@@ -71,7 +71,7 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
             'query' => $query,
         ]);
 
-        $this->load($params);
+        $this->load($params, $formName);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails

@@ -1,7 +1,7 @@
 <?php
 /**
- * Created by 李垒(李雷) <leili@yoozoo.com>.
- * User: lilei
+ * Created by aiman
+ * User: aiman
  */
 
 use app\modules\admin\models\Category as SelfModel;

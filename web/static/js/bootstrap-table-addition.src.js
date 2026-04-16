@@ -1,5 +1,5 @@
 /**
- * Created by lilei on 2017/8/25.
+ * Created by aiman on 2017/8/25.
  * BTable 扩展对象
  * 必须传入 jquery 对象, 否则内部不可以用
  *

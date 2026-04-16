@@ -1,8 +1,8 @@
 <?php
 /**
- * Created by lonisy@163.com
- * User: lilei
- * Date: 2018-12-05 23:01:09
+ * Created by aiman
+ * User: aiman
+ * Date: 2025-12-05 23:01:09
  */
 use yii\helpers\Url;
 ?>
@@ -30,7 +30,7 @@ use yii\helpers\Url;
 
 
 
-            <div class="show_tool" style="position:absolute;z-index:1;">
+            <div class="show_tool" style="position:relative;z-index:1;margin-bottom:150px">
                 <a href="categorylist-<?=$article['category_id'];?>.html"
                     class="show_cat"><?=$article['category_names'] ;?></a>
                 <div class="show_time_y"><b class="name"><?php echo date('Y', $article['reltime']); ?></b></div>
@@ -80,6 +80,24 @@ use yii\helpers\Url;
 
 
 
+            <?php if($article['advs_info']) { ?>
+
+            <?php foreach ($article['advs_info'] as $keys=>$item) : ?>
+
+
+            <div class="item m-t-25">
+                <a href=" <?=$item['adv_url']?>" rel="nofollow" target="_blank">
+                    <div class="sfimg-pc-one">
+                        <img src="<?=$item['adv_banner']?>" />
+                    </div>
+                </a>
+            </div>
+
+            <?php endforeach; ?>
+
+
+            <?php } ?>
+
 
         </div>
 
@@ -121,7 +139,7 @@ use yii\helpers\Url;
                 <div class="sfimg-p-one">
                     <img class="media-object"
                         src="<?php echo $article['img_thumb'] ?? '/web/assets/img/show-thumbnail.jpg'; ?>"
-                        alt="<?=$item['art_title']?>">
+                        alt="<?=$article['art_title']?>">
                 </div>
 
 
@@ -155,11 +173,11 @@ use yii\helpers\Url;
                 <div class="visible-xs">
 
 
-                    <?php if($article['advs_info']['adv_banner']) { ?>
+                    <?php if($article['advs_info'][0]['adv_banner']) { ?>
 
-                    <div class="item"><a href=" <?=$article['advs_info']['adv_url']?>" rel="nofollow" target="_blank">
-                            <img src="<?=$article['advs_info']['adv_banner']?>" />
-                            <div class="adv_title"><?=$article['advs_info']['adv_title']?></div>
+                    <div class="item"><a href=" <?=$article['advs_info'][0]['adv_url']?>" rel="nofollow"
+                            target="_blank">
+                            <img src="<?=$article['advs_info'][0]['adv_banner']?>" />
                         </a>
                     </div>
 
@@ -184,6 +202,8 @@ use yii\helpers\Url;
                 <!-- 相关热点 -->
 
                 <?php foreach ($articles_top_pv['items'] as $k=>$item) : ?>
+
+
 
                 <div class="row p-tb-10">
                     <div class="col-md-4">
@@ -231,6 +251,21 @@ use yii\helpers\Url;
 
                 <hr>
 
+                <div class="visible-xs">
+                <?php if($article['advs_info'][$k]['adv_banner']) { ?>
+
+                <div class="item"><a href=" <?=$article['advs_info'][$k+1]['adv_url']?>" rel="nofollow" target="_blank">
+                        <img src="<?=$article['advs_info'][$k+1]['adv_banner']?>" />
+                        <!-- <div class="adv_title"><?=$article['advs_info'][$k+1]['adv_title']?></div>-->
+                    </a>
+                </div>
+
+                <?php } ?>
+                </div>
+
+
+
+                <hr>
 
                 <?php endforeach; ?>
 
@@ -264,11 +299,11 @@ use yii\helpers\Url;
                 </div>
 
 
-                <?php if($article['advs_info']['adv_banner']) { ?>
+                <?php if($article['advs_info'][0]['adv_banner']) { ?>
 
-                <div class="item"><a href=" <?=$article['advs_info']['adv_url']?>" rel="nofollow" target="_blank">
-                        <img src="<?=$article['advs_info']['adv_banner']?>" />
-                        <div class="adv_title"><?=$article['advs_info']['adv_title']?></div>
+                <div class="item"><a href=" <?=$article['advs_info'][0]['adv_url']?>" rel="nofollow" target="_blank">
+                        <img src="<?=$article['advs_info'][0]['adv_banner']?>" />
+                        <!-- <div class="adv_title"><?=$article['advs_info'][0]['adv_title']?></div>-->
                     </a>
                 </div>
 
@@ -282,7 +317,7 @@ use yii\helpers\Url;
                         <?php  if ($keys <= 5) { ?>
 
 
-                        <li class="list-hr">
+                        <li class="list-hr  title-two">
                             <a href="<?php echo Url::to('/article-' . $item['id'] . '.html'); ?>" target="_blank">
                                 <i class="icon icon-caret-right"></i> <?php echo $item['art_title'] ?? ''; ?>
                             </a>
@@ -316,14 +351,17 @@ use yii\helpers\Url;
 
                 <?php foreach ($articles['items'] as $keys=>$item) : ?>
 
-                <?php  if ($keys <= 5) { ?>
-                <div class="item"><a href="<?php echo Url::to('/article-' . $item['id'] . '.html'); ?>" target="_blank">
-                        <img src="<?php echo $item['img_thumb'] ?? '/web/assets/img/show-thumbnail.jpg'; ?>" />
-                        <h5 class="t"><?php echo $item['art_title'] ?? ''; ?></h5>
+                <?php  if ($keys <= 16) { ?>
+                <div class="sfimg-pc-one"><a href="<?php echo Url::to('/article-' . $item['id'] . '.html'); ?>"
+                        target="_blank">
+                        <img class="media-object"
+                            src="<?php echo $item['img_thumb'] ?? '/web/assets/img/show-thumbnail.jpg'; ?>" />
+                        <div class="title-two">
+                            <h5 class="t"><?php echo $item['art_title'] ?? ''; ?></h5>
+                        </div>
                     </a>
                 </div>
                 <?php  } ?>
-
 
                 <?php endforeach; ?>
 

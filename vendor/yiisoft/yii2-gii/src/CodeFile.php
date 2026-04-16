@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
+ * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license https://www.yiiframework.com/license/
  */
 
 namespace yii\gii;
@@ -15,9 +15,8 @@ use yii\helpers\Html;
 /**
  * CodeFile represents a code file to be generated.
  *
- * @property string $relativePath The code file path relative to the application base path. This property is
- * read-only.
- * @property string $type The code file extension (e.g. php, txt). This property is read-only.
+ * @property-read string $relativePath The code file path relative to the application base path.
+ * @property-read string $type The code file extension (e.g. php, txt).
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -81,13 +80,17 @@ class CodeFile extends BaseObject
      */
     public function save()
     {
-        $module = Yii::$app->controller->module;
+        $module = isset(Yii::$app->controller) ? Yii::$app->controller->module : null;
         if ($this->operation === self::OP_CREATE) {
             $dir = dirname($this->path);
             if (!is_dir($dir)) {
-                $mask = @umask(0);
-                $result = @mkdir($dir, $module->newDirMode, true);
-                @umask($mask);
+                if ($module instanceof \yii\gii\Module) {
+                    $mask = @umask(0);
+                    $result = @mkdir($dir, $module->newDirMode, true);
+                    @umask($mask);
+                } else {
+                    $result = @mkdir($dir, 0777, true);
+                }
                 if (!$result) {
                     return "Unable to create the directory '$dir'.";
                 }
@@ -95,7 +98,9 @@ class CodeFile extends BaseObject
         }
         if (@file_put_contents($this->path, $this->content) === false) {
             return "Unable to write the file '{$this->path}'.";
-        } else {
+        }
+
+        if ($module instanceof \yii\gii\Module) {
             $mask = @umask(0);
             @chmod($this->path, $module->newFileMode);
             @umask($mask);
@@ -111,9 +116,9 @@ class CodeFile extends BaseObject
     {
         if (strpos($this->path, Yii::$app->basePath) === 0) {
             return substr($this->path, strlen(Yii::$app->basePath) + 1);
-        } else {
-            return $this->path;
         }
+
+        return $this->path;
     }
 
     /**
@@ -123,9 +128,9 @@ class CodeFile extends BaseObject
     {
         if (($pos = strrpos($this->path, '.')) !== false) {
             return substr($this->path, $pos + 1);
-        } else {
-            return 'unknown';
         }
+
+        return 'unknown';
     }
 
     /**
@@ -145,9 +150,9 @@ class CodeFile extends BaseObject
             return highlight_string($this->content, true);
         } elseif (!in_array($type, ['jpg', 'gif', 'png', 'exe'])) {
             return nl2br(Html::encode($this->content));
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -162,9 +167,9 @@ class CodeFile extends BaseObject
             return false;
         } elseif ($this->operation === self::OP_OVERWRITE) {
             return $this->renderDiff(file($this->path), $this->content);
-        } else {
-            return '';
         }
+
+        return '';
     }
 
     /**
