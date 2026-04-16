@@ -1,17 +1,19 @@
 # news
 
-Lightweight news/CMS application built with Yii2. Includes admin module, front module, and broadcast layouts.
+Lightweight news/CMS application built with Yii2.
 
-## Requirements
+## Overview
+This project includes:
+- admin module
+- front module
+- broadcast layouts
 
+## Tech Stack
 - PHP 7.4+
-- Composer
+- Yii2
 - MySQL / MariaDB
 - Redis
 
-## Setup
-
-### 1. Clone the project
-```bash
-git clone https://github.com/aimanhazmi/news-.git
-cd news-
+## Notes
+- SQL dump files are not included in this repository
+- Environment secrets are not committed
